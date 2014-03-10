@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Octable</title>
+<link rel="stylesheet" href="octable.css">
+</head>
+<body>
+  <nav id="navbar">
+    <button id="toggleMine">我的課程</button>
+    <div id="my_courses">
+      <div class="list_container" id="selected">
+        <ul class="course"></ul>
+      </div>
+    </div>
+    <input id="searchCode" type="text" placeholder="Search by code">
+    <div id="searchResult">
+      <ul id="searchList"></ul>
+    </div>
+
+    <select id="school">
+      <option value="0">請選學校</option>
+      <option value="nchu">中興大學</option>
+      <option value="ncku">成功大學</option>
+    </select>
+  </nav>
+  <div id="content_container">
+    <button id="show-sidebar">←</button>
+    <div id="form">
+      <div class="column" id="Mon">
+        <div class="cell day" id="mon-0">一</div>
+        <div class="cell" id="mon-1" mom=""></div>
+        <div class="cell" id="mon-2" mom=""></div>
+        <div class="cell" id="mon-3" mom=""></div>
+        <div class="cell" id="mon-4" mom=""></div>
+        <div class="cell" id="mon-N" mom=""></div>
+        <div class="cell" id="mon-5" mom=""></div>
+        <div class="cell" id="mon-6" mom=""></div>
+        <div class="cell" id="mon-7" mom=""></div>
+        <div class="cell" id="mon-8" mom=""></div>
+        <div class="cell" id="mon-9" mom=""></div>
+        <div class="dynamic_table">
+          <div class="cell" id="mon-A" mom=""></div>
+          <div class="cell" id="mon-B" mom=""></div>
+          <div class="cell" id="mon-C" mom=""></div>
+          <div class="cell" id="mon-D" mom=""></div>
+          <div class="clearfix">
+            <br>
+          </div>
+        </div>
+        <div class="clearfix">
+          <br>
+        </div>
+      </div>
+      <div class="column" id="Tue">
+        <div class="cell day" id="tue-0">二</div>
+        <div class="cell" id="tue-1" mom=""></div>
+        <div class="cell" id="tue-2" mom=""></div>
+        <div class="cell" id="tue-3" mom=""></div>
+        <div class="cell" id="tue-4" mom=""></div>
+        <div class="cell" id="tue-N" mom=""></div>
+        <div class="cell" id="tue-5" mom=""></div>
+        <div class="cell" id="tue-6" mom=""></div>
+        <div class="cell" id="tue-7" mom=""></div>
+        <div class="cell" id="tue-8" mom=""></div>
+        <div class="cell" id="tue-9" mom=""></div>
+        <div class="dynamic_table">
+          <div class="cell" id="tue-A" mom=""></div>
+          <div class="cell" id="tue-B" mom=""></div>
+          <div class="cell" id="tue-C" mom=""></div>
+          <div class="cell" id="tue-D" mom=""></div>
+          <div class="clearfix">
+            <br>
+          </div>
+        </div>
+        <div class="clearfix">
+          <br>
+        </div>
+      </div>
+      <div class="column" id="Wed">
+        <div class="cell day" id="wed-0">三</div>
+        <div class="cell" id="wed-1" mom=""></div>
+        <div class="cell" id="wed-2" mom=""></div>
+        <div class="cell" id="wed-3" mom=""></div>
+        <div class="cell" id="wed-4" mom=""></div>
+        <div class="cell" id="wed-N" mom=""></div>
+        <div class="cell" id="wed-5" mom=""></div>
+        <div class="cell" id="wed-6" mom=""></div>
+        <div class="cell" id="wed-7" mom=""></div>
+        <div class="cell" id="wed-8" mom=""></div>
+        <div class="cell" id="wed-9" mom=""></div>
+        <div class="dynamic_table">
+          <div class="cell" id="wed-A" mom=""></div>
+          <div class="cell" id="wed-B" mom=""></div>
+          <div class="cell" id="wed-C" mom=""></div>
+          <div class="cell" id="wed-D" mom=""></div>
+          <div class="clearfix">
+            <br>
+          </div>
+        </div>
+        <div class="clearfix">
+          <br>
+        </div>
+      </div>
+      <div class="column" id="Thr">
+        <div class="cell day" id="thr-0">四</div>
+        <div class="cell" id="thr-1" mom=""></div>
+        <div class="cell" id="thr-2" mom=""></div>
+        <div class="cell" id="thr-3" mom=""></div>
+        <div class="cell" id="thr-4" mom=""></div>
+        <div class="cell" id="thr-N" mom=""></div>
+        <div class="cell" id="thr-5" mom=""></div>
+        <div class="cell" id="thr-6" mom=""></div>
+        <div class="cell" id="thr-7" mom=""></div>
+        <div class="cell" id="thr-8" mom=""></div>
+        <div class="cell" id="thr-9" mom=""></div>
+        <div class="dynamic_table">
+          <div class="cell" id="thr-A" mom=""></div>
+          <div class="cell" id="thr-B" mom=""></div>
+          <div class="cell" id="thr-C" mom=""></div>
+          <div class="cell" id="thr-D" mom=""></div>
+          <div class="clearfix">
+            <br>
+          </div>
+        </div>
+        <div class="clearfix">
+          <br>
+        </div>
+      </div>
+      <div class="column" id="Fri">
+        <div class="cell day" id="fri-0">五</div>
+        <div class="cell" id="fri-1" mom=""></div>
+        <div class="cell" id="fri-2" mom=""></div>
+        <div class="cell" id="fri-3" mom=""></div>
+        <div class="cell" id="fri-4" mom=""></div>
+        <div class="cell" id="fri-N" mom=""></div>
+        <div class="cell" id="fri-5" mom=""></div>
+        <div class="cell" id="fri-6" mom=""></div>
+        <div class="cell" id="fri-7" mom=""></div>
+        <div class="cell" id="fri-8" mom=""></div>
+        <div class="cell" id="fri-9" mom=""></div>
+        <div class="dynamic_table">
+          <div class="cell" id="fri-A" mom=""></div>
+          <div class="cell" id="fri-B" mom=""></div>
+          <div class="cell" id="fri-C" mom=""></div>
+          <div class="cell" id="fri-D" mom=""></div>
+          <div class="clearfix">
+            <br>
+          </div>
+        </div>
+        <div class="clearfix">
+          <br>
+        </div>
+      </div>
+      <div class="column" id="Sat">
+        <div class="cell day" id="sat-0">六</div>
+        <div class="cell" id="sat-1" mom=""></div>
+        <div class="cell" id="sat-2" mom=""></div>
+        <div class="cell" id="sat-3" mom=""></div>
+        <div class="cell" id="sat-4" mom=""></div>
+        <div class="cell" id="sat-N" mom=""></div>
+        <div class="cell" id="sat-5" mom=""></div>
+        <div class="cell" id="sat-6" mom=""></div>
+        <div class="cell" id="sat-7" mom=""></div>
+        <div class="cell" id="sat-8" mom=""></div>
+        <div class="cell" id="sat-9" mom=""></div>
+        <div class="dynamic_table">
+          <div class="cell" id="sat-A" mom=""></div>
+          <div class="cell" id="sat-B" mom=""></div>
+          <div class="cell" id="sat-C" mom=""></div>
+          <div class="cell" id="sat-D" mom=""></div>
+          <div class="clearfix">
+            <br>
+          </div>
+        </div>
+        <div class="clearfix">
+          <br>
+        </div>
+      </div>
+    </div>
+    <div id="sidebar">
+      <div class="course_container" id="dept_courses">
+        <div id="selector_container">
+          <select id="department"></select> <select id="grade">
+            <option value="0">All</option>
+            <option value="1">一</option>
+            <option value="2">二</option>
+            <option value="3">三</option>
+            <option value="4">四</option>
+          </select>
+          <button id="hide-sidebar">→</button>
+        </div>
+        <h1 class="dept_c legend">必修</h1>
+        <div class="list_container" id="obligatory">
+          <ul class="course"></ul>
+        </div>
+        <h1 class="dept_c legend">選修</h1>
+        <div class="list_container" id="elective">
+          <ul class="course"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="extern" id="extern"></div>
+  </div>
+
+  <script type="application/dart" src="octable.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+</body>
+</html>
+
