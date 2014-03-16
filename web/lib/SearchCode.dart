@@ -24,20 +24,19 @@ class SearchCode extends IDB {
     var count = 0;
     cursors.listen((cursor) {
       if (cursor.value['code'].startsWith(request)) {
+        var courseElement = new LIElement();
         var courseTitle = new SpanElement();
-        courseTitle.text = cursor.value['title'] + '代碼: ' + cursor.value['code'];
+        courseTitle.text = cursor.value['title'];
 
         var courseContent = new SpanElement();
-        courseContent.text = '授課教授: ' + cursor.value['professor'] + '學分數: ' + cursor.value['credits'];
+        courseContent.text = '課程代碼: ' + cursor.value['code'];
 
-        var courseElement = new LIElement();
-        courseElement.attributes['class'] = 'subject';
         courseElement.children.addAll([courseTitle, courseContent]);
-
         result.children.add(courseElement);
         count += 1;
       }
-      if (count == 25) {
+
+      if (count == 5) {
         return;
       } else {
         cursor.next();

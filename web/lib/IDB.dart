@@ -15,6 +15,10 @@ class IDB {
       .catchError(onError);
   }
 
+  static void deleteDatabase() {
+    window.indexedDB.deleteDatabase('Octable');
+  }
+
   void initializeDatabase(VersionChangeEvent e) {
     // Reserved
   }

@@ -3,6 +3,7 @@ library SearchDept;
 import 'dart:html';
 import 'dart:indexed_db';
 import 'IDB.dart';
+import 'Cell.dart';
 
 class SearchDept extends IDB {
   var dbname, version, _db, request, grade;
@@ -59,12 +60,14 @@ class SearchDept extends IDB {
     elective.children.clear();
 
     cursors.listen((cursor) {
+      var cellObj = new Cell();
+
       if (grade == '0' || cursor.value['grade'] == grade) {
         var courseTitle = new SpanElement();
-        courseTitle.text = cursor.value['title'];
+        courseTitle.text = cursor.value['title'] + ' 選課代碼: ' + cursor.value['code'];
 
         var courseContent = new SpanElement();
-        courseContent.text = '授課教師: ' + cursor.value['professor'] + '學分數: ' + cursor.value['credits'];
+        courseContent.text = '授課教師: ' + cursor.value['professor'] + ' 學分數: ' + cursor.value['credits'];
 
         var courseElement = new LIElement();
         courseElement.attributes['class'] = 'subject';
@@ -74,7 +77,7 @@ class SearchDept extends IDB {
         // Handle mouse event
         var values = cursor.value;
         courseElement.onClick.listen((Event e) {
-          _addCell(values);
+          cellObj.add(values);
         });
         courseElement.onMouseOver.listen((Event e) {
           _displayCell(values, 'show');
@@ -92,50 +95,6 @@ class SearchDept extends IDB {
     });
   }
 
-  void _addCell(Map values) {
-    var timeList = values['time'].trim().split(',');
-    timeList.forEach((String time) {
-      var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
-      var day = days[int.parse(time[0])];
-      time = time.substring(1, time.length);
-
-      for (var t in time.split('')) {
-        var cell = querySelector('#$day' + '-$t');
-        if (cell.innerHtml != "") {
-          return;
-        } else {
-          var courseContent = new SpanElement();
-          courseContent.text = values['code'] + ' ' + values['title'];
-          cell.attributes['code'] = values['code'];
-          cell.attributes['time'] = values['time'].trim();
-          cell.classes.add('activedCell');
-          cell.append(courseContent);
-
-          cell.onClick.listen((Event e) {
-            var cell = e.target;
-            _removeCell(cell);
-          });
-        }
-      }
-    });
-  }
-
-  void _removeCell(var clickedCell) {
-    var timeList = clickedCell.attributes['time'].split(',');
-    timeList.forEach((String time) {
-      var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
-      var day = days[int.parse(time[0])];
-      time = time.substring(1, time.length);
-      for (var t in time.split('')) {
-        var cell = querySelector('#$day' + '-$t');
-        cell.attributes.remove('code');
-        cell.attributes.remove('time');
-        cell.classes.remove('activedCell');
-        cell.children.clear();
-      }
-    });
-  }
-
   void _displayCell(Map values, String behave) {
     var timeList = values['time'].trim().split(',');
     timeList.forEach((String time) {
@@ -147,14 +106,14 @@ class SearchDept extends IDB {
         var cell = querySelector('#$day' + '-$t');
 
         if (behave == 'show') {
-          if (cell.innerHtml != "") {
+          if (cell.children.isNotEmpty) {
             if (cell.attributes['code'] == values['code']) {
               return;
             } else {
               cell.style.backgroundColor = '#FF1C2D';
             }
           } else {
-            cell.style.backgroundColor = '#ADC7C5';
+            cell.style.backgroundColor = '#D6B86D';
           }
         } else if (behave == 'hide') {
           cell.attributes.remove('style');

@@ -1,0 +1,41 @@
+#navbar {
+  background-color: #F9F9F9;
+  position: fixed;
+  top: 0;
+  height: 36px;
+  width: 100%;
+  z-index: 20;
+  box-shadow: 1px 1px 3px #141414;
+}
+
+#searchCode {
+  height: 30px;
+  margin-top: 3px;
+  padding: 0px 0px 0px 8px;
+  border: 0px;
+  border-radius: 4px;
+}
+
+#searchResult {
+  background-color: #EBEBEB;
+  display: none;
+  position: absolute;
+  left: 79px;
+  top: 36px;
+  z-index: 200;
+  width: 295px;
+  height: 200px;
+  overflow: auto;
+  box-shadow: 1px 1px 1px black;
+}
+
+#searchList {
+  display: none;
+  padding-left: 20px !important;
+  list-style-type: none;
+}
+
+#searchList li span {
+  display: inline-block;
+  font-size: 13px;
+}
