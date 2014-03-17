@@ -10,7 +10,9 @@
   width: calc(70% / 6);
   height: calc(40px * 15 - 17px);
   position: absolute;
-  font-size: 13px;
+  vertical-align: center;
+  font-family: Arial;
+  font-size: 14px;
 }
 
 .column:nth-child(1) {
@@ -46,7 +48,7 @@
 
 .cell:nth-child(1) {
   background-color: #F9F9F9 !important;
-  height: 23px !important;
+  height: 20px !important;
 }
 
 .cell:nth-child(2),
@@ -61,14 +63,4 @@
 
 .activedCell {
   background-color: #ADC7C5 !important;
-}
-
-.extern {
-  background-color: #EEEEEE;
-  display: none;
-  position: absolute;
-  border-style: dashed;
-  border-width: 2px;
-  padding: 3px;
-  z-Index: 200;
 }

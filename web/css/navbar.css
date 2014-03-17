@@ -17,10 +17,9 @@
 }
 
 #searchResult {
-  background-color: #EBEBEB;
+  background-color: #F9F9F9;
   display: none;
   position: absolute;
-  left: 79px;
   top: 36px;
   z-index: 200;
   width: 295px;

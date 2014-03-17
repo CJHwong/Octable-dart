@@ -52,45 +52,50 @@ class SearchDept extends IDB {
     var store = trans.objectStore('Courses');
     var cursors = store.index('department').openCursor(key: dept, autoAdvance: true);
 
-    var obligatory = querySelector('#obligatory').children[0];
-    var elective = querySelector('#elective').children[0];
-
-    // Clear previous DOM
-    obligatory.children.clear();
-    elective.children.clear();
+    var courseList = querySelector('#obligatory').children[0];
+    courseList.children.clear();
 
     cursors.listen((cursor) {
       var cellObj = new Cell();
 
       if (grade == '0' || cursor.value['grade'] == grade) {
         var courseTitle = new SpanElement();
-        courseTitle.text = cursor.value['title'] + ' 選課代碼: ' + cursor.value['code'];
+        courseTitle.text = '${cursor.value["title"]}';
+
+        var courseCode = new SpanElement();
+        courseCode.text = '課程代碼: ${cursor.value["code"]}';
 
         var courseContent = new SpanElement();
-        courseContent.text = '授課教師: ' + cursor.value['professor'] + ' 學分數: ' + cursor.value['credits'];
+        courseContent.text = '${cursor.value["professor"]} | 學分數: ${cursor.value["credits"]} | ';
+
+        var courseObligatory = new AnchorElement();
+        if (cursor.value["obligatory"] == '必修') {
+          courseObligatory.classes.add('obligatory-btn');
+        } else if (cursor.value["obligatory"] == '選修') {
+          courseObligatory.classes.add('elective-btn');
+        }
+
+        courseObligatory.text = cursor.value["obligatory"];
+        courseContent.append(courseObligatory);
 
         var courseElement = new LIElement();
         courseElement.attributes['class'] = 'subject';
         courseElement.attributes['code'] = cursor.value['code'];
-        courseElement.children.addAll([courseTitle, courseContent]);
+        courseElement.children.addAll([courseTitle, courseCode, courseContent]);
 
         // Handle mouse event
         var values = cursor.value;
-        courseElement.onClick.listen((Event e) {
+        courseObligatory.onClick.listen((Event e) {
           cellObj.add(values);
         });
-        courseElement.onMouseOver.listen((Event e) {
+        courseObligatory.onMouseOver.listen((Event e) {
           _displayCell(values, 'show');
         });
-        courseElement.onMouseOut.listen((Event e) {
+        courseObligatory.onMouseOut.listen((Event e) {
           _displayCell(values, 'hide');
         });
 
-        if (cursor.value['obligatory'] == '必修') {
-          obligatory.append(courseElement);
-        } else if (cursor.value['obligatory'] == '選修') {
-          elective.append(courseElement);
-        }
+        courseList.append(courseElement);
       }
     });
   }
