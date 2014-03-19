@@ -2,7 +2,7 @@
   background-color: #F9F9F9;
   display: inline-block;
   width: 26%;
-  height: 506px;
+  height: calc(100% - 36px);
   position: absolute;
   margin-left: 7px;
   border-radius: 3px;

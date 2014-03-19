@@ -53,7 +53,7 @@ class SearchDept extends IDB {
     var cursors = store.index('department').openCursor(key: dept, autoAdvance: true);
 
     var courseList = querySelector('#obligatory').children[0];
-    courseList.children.clear();
+    courseList.children.clear(); // Clear previous DOM
 
     cursors.listen((cursor) {
       var cellObj = new Cell();
@@ -74,7 +74,7 @@ class SearchDept extends IDB {
         } else if (cursor.value["obligatory"] == '選修') {
           courseObligatory.classes.add('elective-btn');
         }
-
+        courseObligatory.href = '#';
         courseObligatory.text = cursor.value["obligatory"];
         courseContent.append(courseObligatory);
 
@@ -89,40 +89,13 @@ class SearchDept extends IDB {
           cellObj.add(values);
         });
         courseObligatory.onMouseOver.listen((Event e) {
-          _displayCell(values, 'show');
+          cellObj.display(values, 'show');
         });
         courseObligatory.onMouseOut.listen((Event e) {
-          _displayCell(values, 'hide');
+          cellObj.display(values, 'hide');
         });
 
         courseList.append(courseElement);
-      }
-    });
-  }
-
-  void _displayCell(Map values, String behave) {
-    var timeList = values['time'].trim().split(',');
-    timeList.forEach((String time) {
-      var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
-      var day = days[int.parse(time[0])];
-      time = time.substring(1, time.length);
-
-      for (var t in time.split('')) {
-        var cell = querySelector('#$day' + '-$t');
-
-        if (behave == 'show') {
-          if (cell.children.isNotEmpty) {
-            if (cell.attributes['code'] == values['code']) {
-              return;
-            } else {
-              cell.style.backgroundColor = '#FF1C2D';
-            }
-          } else {
-            cell.style.backgroundColor = '#D6B86D';
-          }
-        } else if (behave == 'hide') {
-          cell.attributes.remove('style');
-        }
       }
     });
   }

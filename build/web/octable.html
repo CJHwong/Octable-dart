@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Octable</title>
+<link rel="stylesheet" href="octable.css">
+</head>
+<body>
+  <nav id="navbar">
+    <input id="searchCode" type="text" placeholder="Search by code">
+    <div id="searchResult">
+      <ul id="searchList"></ul>
+    </div>
+  </nav>
+  <div id="content-container">
+    <div id="timetable">
+      <div class="column" id="Mon">
+        <div class="cell" id="mon-0">Mon</div>
+        <div class="cell" id="mon-1"></div>
+        <div class="cell" id="mon-2"></div>
+        <div class="cell" id="mon-3"></div>
+        <div class="cell" id="mon-4"></div>
+        <div class="cell" id="mon-N"></div>
+        <div class="cell" id="mon-5"></div>
+        <div class="cell" id="mon-6"></div>
+        <div class="cell" id="mon-7"></div>
+        <div class="cell" id="mon-8"></div>
+        <div class="cell" id="mon-9"></div>
+        <div class="cell" id="mon-A"></div>
+        <div class="cell" id="mon-B"></div>
+        <div class="cell" id="mon-C"></div>
+        <div class="cell" id="mon-D"></div>
+      </div>
+      <div class="column" id="Tue">
+        <div class="cell" id="tue-0">Tue</div>
+        <div class="cell" id="tue-1"></div>
+        <div class="cell" id="tue-2"></div>
+        <div class="cell" id="tue-3"></div>
+        <div class="cell" id="tue-4"></div>
+        <div class="cell" id="tue-N"></div>
+        <div class="cell" id="tue-5"></div>
+        <div class="cell" id="tue-6"></div>
+        <div class="cell" id="tue-7"></div>
+        <div class="cell" id="tue-8"></div>
+        <div class="cell" id="tue-9"></div>
+        <div class="cell" id="tue-A"></div>
+        <div class="cell" id="tue-B"></div>
+        <div class="cell" id="tue-C"></div>
+        <div class="cell" id="tue-D"></div>
+      </div>
+      <div class="column" id="Wed">
+        <div class="cell" id="wed-0">Wed</div>
+        <div class="cell" id="wed-1"></div>
+        <div class="cell" id="wed-2"></div>
+        <div class="cell" id="wed-3"></div>
+        <div class="cell" id="wed-4"></div>
+        <div class="cell" id="wed-N"></div>
+        <div class="cell" id="wed-5"></div>
+        <div class="cell" id="wed-6"></div>
+        <div class="cell" id="wed-7"></div>
+        <div class="cell" id="wed-8"></div>
+        <div class="cell" id="wed-9"></div>
+        <div class="cell" id="wed-A"></div>
+        <div class="cell" id="wed-B"></div>
+        <div class="cell" id="wed-C"></div>
+        <div class="cell" id="wed-D"></div>
+      </div>
+      <div class="column" id="Thr">
+        <div class="cell" id="thr-0">Thr</div>
+        <div class="cell" id="thr-1"></div>
+        <div class="cell" id="thr-2"></div>
+        <div class="cell" id="thr-3"></div>
+        <div class="cell" id="thr-4"></div>
+        <div class="cell" id="thr-N"></div>
+        <div class="cell" id="thr-5"></div>
+        <div class="cell" id="thr-6"></div>
+        <div class="cell" id="thr-7"></div>
+        <div class="cell" id="thr-8"></div>
+        <div class="cell" id="thr-9"></div>
+        <div class="cell" id="thr-A"></div>
+        <div class="cell" id="thr-B"></div>
+        <div class="cell" id="thr-C"></div>
+        <div class="cell" id="thr-D"></div>
+      </div>
+      <div class="column" id="Fri">
+        <div class="cell" id="fri-0">Fri</div>
+        <div class="cell" id="fri-1"></div>
+        <div class="cell" id="fri-2"></div>
+        <div class="cell" id="fri-3"></div>
+        <div class="cell" id="fri-4"></div>
+        <div class="cell" id="fri-N"></div>
+        <div class="cell" id="fri-5"></div>
+        <div class="cell" id="fri-6"></div>
+        <div class="cell" id="fri-7"></div>
+        <div class="cell" id="fri-8"></div>
+        <div class="cell" id="fri-9"></div>
+        <div class="cell" id="fri-A"></div>
+        <div class="cell" id="fri-B"></div>
+        <div class="cell" id="fri-C"></div>
+        <div class="cell" id="fri-D"></div>
+      </div>
+      <div class="column" id="Sat">
+        <div class="cell" id="sat-0">Sat</div>
+        <div class="cell" id="sat-1"></div>
+        <div class="cell" id="sat-2"></div>
+        <div class="cell" id="sat-3"></div>
+        <div class="cell" id="sat-4"></div>
+        <div class="cell" id="sat-N"></div>
+        <div class="cell" id="sat-5"></div>
+        <div class="cell" id="sat-6"></div>
+        <div class="cell" id="sat-7"></div>
+        <div class="cell" id="sat-8"></div>
+        <div class="cell" id="sat-9"></div>
+        <div class="cell" id="sat-A"></div>
+        <div class="cell" id="sat-B"></div>
+        <div class="cell" id="sat-C"></div>
+        <div class="cell" id="sat-D"></div>
+      </div>
+    </div>
+
+    <div id="sidebar">
+      <div id="dept-selector">
+        <select id="department"></select> <select id="grade">
+          <option value="0">All</option>
+          <option value="1">一</option>
+          <option value="2">二</option>
+          <option value="3">三</option>
+          <option value="4">四</option>
+        </select>
+      </div>
+      <h1 class="legend">課程清單</h1>
+      <div class="course-list" id="obligatory">
+        <ul></ul>
+      </div>
+      <h1 class="legend">已選修課程</h1>
+      <div class="course-list" id="elective">
+        <ul></ul>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/dart" src="octable.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+</body>
+</html>

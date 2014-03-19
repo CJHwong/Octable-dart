@@ -34,16 +34,16 @@ body {
 
 #collegeSelection {
   position: fixed;
-  top: calc(50% - 15px);
-  left: calc(50% - 50px);
+  top: calc(50% -   15px);
+  left: calc(50% -   50px);
   width: 100px;
   height: 30px;
 }
 
 #collegeSubmit {
   position: fixed;
-  top: calc(50% - 15px);
-  left: calc(50% + 50px);
+  top: calc(50% -   15px);
+  left: calc(50% +   50px);
   width: 30px;
   height: 30px;
 }
@@ -51,8 +51,8 @@ body {
 #loading {
   background-color: red;
   position: fixed;
-  top: calc(50% - 50px);
-  left: calc(50% - 50px);
+  top: calc(50% -   50px);
+  left: calc(50% -   50px);
   width: 100px;
   height: 100px;
   -webkit-animation-duration: 1.5s;

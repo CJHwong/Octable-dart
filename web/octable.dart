@@ -3,6 +3,7 @@ library Octable;
 import 'dart:html';
 import 'dart:convert';
 import 'lib/IDB.dart';
+import 'lib/Cell.dart';
 import 'lib/CreateDB.dart';
 import 'lib/SearchDept.dart';
 import 'lib/SearchCode.dart';
@@ -102,6 +103,8 @@ class Octable {
     Storage localStorage = window.localStorage;
     if (localStorage['dbOpened'] == 'true') {
       new SearchDept('Octable', 1, 'open', '0').open();
+      var cellObj= new Cell();
+      cellObj.addSelected();
     } else {
       print('Downloading JSON from server');
       var host = window.location.host;
@@ -119,6 +122,8 @@ class Octable {
     });
     Storage localStorage = window.localStorage;
     localStorage['dbOpened'] = 'true';
+    var cellObj= new Cell();
+    cellObj.addSelected();
   }
 }
 
