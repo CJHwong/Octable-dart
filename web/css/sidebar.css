@@ -8,15 +8,25 @@
   border-radius: 3px;
 }
 
+#search-input {
+  height: 30px;
+  width: 48%;
+  margin: 10px 0px 10px 7px;
+  padding: 0px 0px 0px 8px;
+  border: 0px;
+  border-radius: 4px;
+  box-shadow: inset 0px 0px 2px black;
+}
+
 #dept-selector {
   display: block;
   height: 36px;
 }
 
-#dept-selector select {
+#dept-selector select, #search-selector select {
   background-color: #FFF;
   height: 30px;
-  margin: 7px;
+  margin: 0px 0px 10px 7px;
   border: 0px;
   border-radius: 3px;
   box-shadow: inset 0px 0px 2px black;

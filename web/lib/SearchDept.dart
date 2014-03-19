@@ -52,7 +52,7 @@ class SearchDept extends IDB {
     var store = trans.objectStore('Courses');
     var cursors = store.index('department').openCursor(key: dept, autoAdvance: true);
 
-    var courseList = querySelector('#dept-search-list').children[0];
+    var courseList = querySelector('#search-list').children[0];
     courseList.children.clear(); // Clear previous DOM
 
     cursors.listen((cursor) {

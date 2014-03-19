@@ -6,12 +6,7 @@
 <link rel="stylesheet" href="octable.css">
 </head>
 <body>
-  <nav id="navbar">
-    <input id="searchCode" type="text" placeholder="Search by code">
-    <div id="searchResult">
-      <ul id="searchList"></ul>
-    </div>
-  </nav>
+  <nav id="navbar"></nav>
   <div id="content-container">
     <div id="timetable">
       <div class="column" id="Mon">
@@ -287,8 +282,17 @@
     </div>
 
     <div id="sidebar">
+      <div id="search-selector">
+        <input id="search-input" type="text" placeholder="Type keyword">
+        <select id="search-mode">
+          <option value="title">課程名稱</option>
+          <option value="code">課程代碼</option>
+          <option value="time">課程時間</option>
+        </select>
+      </div>
       <div id="dept-selector">
-        <select id="department"></select> <select id="grade">
+        <select id="department"></select>
+        <select id="grade">
           <option value="0">All</option>
           <option value="1">一</option>
           <option value="2">二</option>
@@ -297,7 +301,7 @@
         </select>
       </div>
       <h1 class="legend">課程清單</h1>
-      <div class="course-list" id="dept-search-list">
+      <div class="course-list" id="search-list">
         <ul></ul>
       </div>
       <h1 class="legend">已選修課程</h1>

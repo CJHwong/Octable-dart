@@ -41,16 +41,14 @@ class Octable {
     });
 
     // Code searching
-    querySelector('#searchCode').onInput.listen((Event e) {
+    querySelector('#search-input').onInput.listen((Event e) {
       var request = e.target;
-      querySelector('#searchList').children.clear();
+      var mode = querySelector('#search-mode');
       if (request.value != "") {
-        new SearchCode(DBNAME, VERSION, request.value).open();
-        querySelector('#searchResult').style.display = 'block';
-        querySelector('#searchList').style.display = 'inline-block';
+        new SearchCode(DBNAME, VERSION, request.value, mode.value).open();
       } else {
-        querySelector('#searchResult').attributes.remove('style');
-        querySelector('#searchList').attributes.remove('style');
+        var searchList = querySelector('#search-list');
+        searchList.children[0].children.clear();
       }
     });
   }
