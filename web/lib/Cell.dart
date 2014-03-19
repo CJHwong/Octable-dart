@@ -105,11 +105,12 @@ class Cell {
       time = time.substring(1, time.length);
       for (var t in time.split('')) {
         var cell = querySelector('#$day' + '-$t');
+        var course = cell.children[0];
         cell.attributes.remove('code');
         cell.attributes.remove('time');
-        cell.attributes.remove('style');
-        cell.children.clear();
-        cell.onDoubleClick.listen((Event e) {}).cancel();
+        course.attributes.remove('style');
+        course.children.clear();
+        course.onDoubleClick.listen((Event e) {}).cancel();
       }
     });
   }
