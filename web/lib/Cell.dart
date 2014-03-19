@@ -38,6 +38,34 @@ class Cell {
       }
     });
 
+    // Add to selected courses list
+    var courseTitle = new SpanElement();
+    courseTitle.text = '${values["title"]}';
+
+    var courseCode = new SpanElement();
+    courseCode.text = '課程代碼: ${values["code"]}';
+
+    var courseContent = new SpanElement();
+    courseContent.text = '${values["professor"]} | 學分數: ${values["credits"]} | ';
+
+    var courseObligatory = new AnchorElement();
+    if (values["obligatory"] == '必修') {
+      courseObligatory.classes.add('obligatory-btn');
+    } else if (values["obligatory"] == '選修') {
+      courseObligatory.classes.add('elective-btn');
+    }
+    courseObligatory.text = values["obligatory"];
+    courseContent.append(courseObligatory);
+
+    var courseElement = new LIElement();
+    courseElement.attributes['class'] = 'subject';
+    courseElement.attributes['code'] = values['code'];
+    courseElement.children.addAll([courseTitle, courseCode, courseContent]);
+
+    var selectedCoursesList = querySelector('#selected-courses').children[0];
+    selectedCoursesList.append(courseElement);
+
+    // Record to localStorage
     Storage localStorage = window.localStorage;
     if (localStorage['selectedCourses'] == null) {
       var selectedCourses = new Map();
@@ -55,6 +83,16 @@ class Cell {
       return;
     }
 
+    // Remove from selected courses list
+    var selectedCoursesList = querySelector('#selected-courses').children[0];
+    for (var li in selectedCoursesList.children) {
+      if (li.attributes['code'] == clickedCell.attributes['code']) {
+        li.remove();
+        break;
+      }
+    }
+
+    // Remove from localStorage
     Storage localStorage = window.localStorage;
     var selectedCourses = JSON.decode(localStorage['selectedCourses']);
     selectedCourses.remove(clickedCell.attributes['code']);
