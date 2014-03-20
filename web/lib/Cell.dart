@@ -30,7 +30,7 @@ class Cell {
     List timeList = values['time'].trim().split(',');
     timeList.forEach((String time) {
       var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
-      var day = days[int.parse(time[0])];
+      var day = days[int.parse(time[0]) % 7];
       time = time.substring(1, time.length);
 
       for (var t in time.split('')) {
@@ -137,7 +137,7 @@ class Cell {
     var timeList = time.split(',');
     timeList.forEach((String time) {
       var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
-      var day = days[int.parse(time[0])];
+      var day = days[int.parse(time[0]) % 7];
       time = time.substring(1, time.length);
       for (var t in time.split('')) {
         var cell = querySelector('#$day' + '-$t')
@@ -166,7 +166,8 @@ class Cell {
       var timeList = values['time'].trim().split(',');
       timeList.forEach((String time) {
         var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
-        var day = days[int.parse(time[0])];
+        var day = days[int.parse(time[0]) % 7];
+        print(day);
         time = time.substring(1, time.length);
 
         for (var t in time.split('')) {

@@ -7,7 +7,7 @@
 
 .column {
   display: inline-block;
-  width: calc(70% / 6);
+  width: calc(70% / 7);
   height: calc(40px * 15 - 17px);
   position: absolute;
   font-family: Arial;
@@ -15,27 +15,31 @@
 }
 
 .column:nth-child(1) {
-  left: calc(70% / 6 * 0 + 2%);
+  left: calc(70% / 7 * 0 + 2%);
 }
 
 .column:nth-child(2) {
-  left: calc(70% / 6 * 1 + 2%);
+  left: calc(70% / 7 * 1 + 2%);
 }
 
 .column:nth-child(3) {
-  left: calc(70% / 6 * 2 + 2%);
+  left: calc(70% / 7 * 2 + 2%);
 }
 
 .column:nth-child(4) {
-  left: calc(70% / 6 * 3 + 2%);
+  left: calc(70% / 7 * 3 + 2%);
 }
 
 .column:nth-child(5) {
-  left: calc(70% / 6 * 4 + 2%);
+  left: calc(70% / 7 * 4 + 2%);
 }
 
 .column:nth-child(6) {
-  left: calc(70% / 6 * 5 + 2%);
+  left: calc(70% / 7 * 5 + 2%);
+}
+
+.column:nth-child(7) {
+  left: calc(70% / 7 * 6 + 2%);
 }
 
 .cell {

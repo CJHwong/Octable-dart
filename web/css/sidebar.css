@@ -8,38 +8,30 @@
   border-radius: 3px;
 }
 
-#search-selector {
-  margin: 0px 0px 0px 7px;
-}
-
-#search-input {
-  height: 30px;
-  width: 48%;
-  padding: 0px 0px 0px 8px;
-  border: 0px;
-  border-radius: 4px;
-  box-shadow: inset 0px 0px 2px black;
-}
-
-#dept-selector {
-  display: block;
-  height: 36px;
-  margin: 10px 0px 0px 7px;
-}
-
 #dept-select {
-  width: 94px;
-  height: 36px;
+  width: 48%;
 }
 
 #grade-select {
-  width: 48px;
-  height: 36px;
+  width: 63px;
 }
 
-#search-input, #search-mode, #dept-select, #grade-select {
+#search-input {
+  width: calc(85% - 80px);
+  padding: 0px 0px 0px 8px;
+}
+
+#search-mode {
+  position: absolute;
+  left: calc(85% - 63px);
+  width: 80px
+}
+
+#dept-select, #grade-select, #search-input, #search-mode {
   background-color: #FFF;
+  display: inline-block;
   height: 30px;
+  margin: 7px 0px 0px 7px;
   border: 0px;
   border-radius: 3px;
   box-shadow: inset 0px 0px 2px black;
