@@ -4,18 +4,26 @@ import 'dart:html';
 import 'dart:convert';
 
 class Cell {
-  String SELECTED = '#ADC7C5',
-                 CONFLICT = '#FF1C2D',
-                 HOVERED = '#D6B86D';
+  static final String SELECTED = '#ADC7C5',
+                       CONFLICT = '#FF1C2D',
+                       HOVERED = '#D6B86D';
 
-  bool cellConflict = false;
+  static bool cellConflict = false;
 
-  void add(Map values) {
-    if (cellConflict) {
+  static void add(Map values, {bool auto: false}) {
+    // Prevent conflict or selected courses from being add
+    Storage localStorage = window.localStorage;
+    Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
+    if (cellConflict || (!auto && selectedCourses.keys.toList().contains(values['code']))) {
       return;
     }
 
-    var timeList = values['time'].trim().split(',');
+    // Add to localStorage
+    selectedCourses[values['code']] = values;
+    localStorage['selectedCourses'] = JSON.encode(selectedCourses);
+
+    // Add to each cell
+    List timeList = values['time'].trim().split(',');
     timeList.forEach((String time) {
       var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
       var day = days[int.parse(time[0])];
@@ -27,100 +35,98 @@ class Cell {
         if (cell.attributes['code'] != null) {
           return;
         } else {
-          var courseContent = new SpanElement();
-          courseContent.text = values['title'];
-          var course = cell.children[0];
-          course.style.backgroundColor = SELECTED;
-          course.append(courseContent);
+          var courseContent = new SpanElement()
+                ..text = values['title'];
+          var course = cell.children[0]
+                ..style.backgroundColor = SELECTED
+                ..append(courseContent);
 
-          cell.attributes['code'] = values['code'];
-          cell.attributes['time'] = values['time'].trim();
+          cell
+            ..attributes['code'] = values['code']
+            ..attributes['time'] = values['time'].trim();
         }
       }
     });
 
     // Add to selected courses list
-    var courseTitle = new SpanElement();
-    courseTitle.text = '${values["title"]}';
+    var courseElement = new LIElement()
+          ..attributes['class'] = 'subject'
+          ..attributes['code'] = values['code']
+          ..attributes['time'] = values['time'].trim();
 
-    var courseCode = new SpanElement();
-    courseCode.text = '課程代碼: ${values["code"]}';
+    var courseTitle = new SpanElement()
+          ..text = '${values["title"]}';
 
-    var courseContent = new SpanElement();
-    courseContent.text = '${values["professor"]} | 學分數: ${values["credits"]} | ';
+    var courseCode = new SpanElement()
+          ..text = '課程代碼: ${values["code"]}';
 
-    var courseObligatory = new AnchorElement();
+    var courseContent = new SpanElement()
+          ..text = '${values["professor"]} | 學分數: ${values["credits"]} | ';
+    var courseObligatory = new AnchorElement()
+          ..text = values["obligatory"];
     if (values["obligatory"] == '必修') {
       courseObligatory.classes.add('obligatory-btn');
     } else if (values["obligatory"] == '選修') {
       courseObligatory.classes.add('elective-btn');
     }
-    courseObligatory.text = values["obligatory"];
-    courseContent.append(courseObligatory);
+    var courseRemove = new AnchorElement()
+          ..text = '移除'
+          ..href = '#'
+          ..classes.add('remove-btn')
+          ..onClick.listen((Event e) {
+            String code = courseElement.attributes['code'];
+            String time = courseElement.attributes['time'];
+            Cell.remove(code , time);
+          });
+    courseContent
+      ..append(courseObligatory)
+      ..append(courseRemove);
 
-    var courseElement = new LIElement();
-    var courseRemove = new AnchorElement();
-    courseRemove.text = '移除';
-    courseRemove.href = '#';
-    courseRemove.classes.add('remove-btn');
-    courseRemove.onClick.listen((Event e) {
-      remove(courseElement);
-    });
-    courseContent.append(courseRemove);
-    courseElement.attributes['class'] = 'subject';
-    courseElement.attributes['code'] = values['code'];
-    courseElement.attributes['time'] = values['time'].trim();
     courseElement.children.addAll([courseTitle, courseCode, courseContent]);
 
-    var selectedCoursesList = querySelector('#selected-courses').children[0];
-    selectedCoursesList.append(courseElement);
+    var selectedCoursesList = querySelector('#selected-courses').children[0]
+          ..append(courseElement);
 
-    // Record to localStorage
-    Storage localStorage = window.localStorage;
-    if (localStorage['selectedCourses'] == null) {
-      var selectedCourses = new Map();
-      selectedCourses[values['code']] = values;
-      localStorage['selectedCourses'] = JSON.encode(selectedCourses);
-    } else {
-      var selectedCourses = JSON.decode(localStorage['selectedCourses']);
-      selectedCourses[values['code']] = values;
-      localStorage['selectedCourses'] = JSON.encode(selectedCourses);
-    }
+    print('Added $values');
   }
 
-  void remove(var clickedCell) {
+  static void remove(String code, String time) {
     // Remove from localStorage
     Storage localStorage = window.localStorage;
-    var selectedCourses = JSON.decode(localStorage['selectedCourses']);
-    selectedCourses.remove(clickedCell.attributes['code']);
+    var selectedCourses = JSON.decode(localStorage['selectedCourses'])
+          ..remove(code);
     localStorage['selectedCourses'] = JSON.encode(selectedCourses);
 
-    // Remove from selected courses list
-    var selectedCoursesList = querySelector('#selected-courses').children[0];
-    for (var li in selectedCoursesList.children) {
-      if (li.attributes['code'] == clickedCell.attributes['code']) {
-        li.remove();
-        break;
-      }
-    }
-
-    var timeList = clickedCell.attributes['time'].split(',');
+    // Remove from each cell
+    var timeList = time.split(',');
     timeList.forEach((String time) {
       var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
       var day = days[int.parse(time[0])];
       time = time.substring(1, time.length);
       for (var t in time.split('')) {
-        var cell = querySelector('#$day' + '-$t');
-        var course = cell.children[0];
-        cell.attributes.remove('code');
-        cell.attributes.remove('time');
-        course.attributes.remove('style');
-        course.children.clear();
+        var cell = querySelector('#$day' + '-$t')
+              ..attributes.remove('code')
+              ..attributes.remove('time');
+        var course = cell.children[0]
+              ..attributes.remove('style')
+              ..children.clear();
       }
     });
+
+    // Remove from selected courses list
+    var selectedCoursesList = querySelector('#selected-courses').children[0];
+    for (var li in selectedCoursesList.children) {
+      if (li.attributes['code'] == code) {
+        li.remove();
+        break;
+      }
+    }
+
+    print('Removed $code');
+    print(localStorage['selectedCourses']);
   }
 
-  void display(Map values, String behave) {
+  static void display(Map values, String behave) {
       var timeList = values['time'].trim().split(',');
       timeList.forEach((String time) {
         var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
@@ -129,12 +135,12 @@ class Cell {
 
         for (var t in time.split('')) {
           var cell = querySelector('#$day' + '-$t');
+          var course = cell.children[0];
 
           if (behave == 'show') {
-            var course = cell.children[0];
-
             if (cell.attributes['code'] != null) {
               if (cell.attributes['code'] == values['code']) {
+                cellConflict = true;
                 return;
               } else {
                 cellConflict = true;
@@ -144,8 +150,6 @@ class Cell {
               course.style.backgroundColor = HOVERED;
             }
           } else if (behave == 'hide') {
-            var course = cell.children[0];
-
             if (course.innerHtml.isEmpty) {
               course.attributes.remove('style');
             } else {
@@ -157,11 +161,13 @@ class Cell {
       });
     }
 
-  void addSelected() {
+  static void addSelected() {
     Storage localStorage = window.localStorage;
-    Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
-    for (var value in selectedCourses.values) {
-      add(value);
+    if (localStorage['selectedCourses'] != null) {
+      Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
+      for (var value in selectedCourses.values) {
+        Cell.add(value, auto: true);
+      }
     }
   }
 }

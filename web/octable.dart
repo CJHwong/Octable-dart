@@ -2,25 +2,23 @@ library Octable;
 
 import 'dart:html';
 import 'dart:convert';
-import 'lib/IDB.dart';
 import 'lib/Cell.dart';
 import 'lib/CreateDB.dart';
-import 'lib/SearchDept.dart';
-import 'lib/SearchCode.dart';
+import 'lib/DeptSearch.dart';
+import 'lib/CustomSearch.dart';
 
 class Octable {
-  var DBNAME, VERSION, COLLEGE;
-  var jsonObj;
+  var dbname, version, college;
 
-  Octable(String DBNAME, num VERSION, String COLLEGE) {
-    this.DBNAME = DBNAME;
-    this.VERSION = VERSION;
-    this.COLLEGE = COLLEGE;
+  Octable(String dbname, num version, String college) {
+    this.dbname = dbname;
+    this.version = version;
+    this.college = college;
   }
 
   void open() {
     this._prepareUI();
-    this._loadData(COLLEGE);
+    this._loadData();
 //    this._selectCollege();
   }
 
@@ -30,14 +28,14 @@ class Octable {
       var request = e.target;
       var grade = querySelector('#grade-select');
       grade.value = '0';
-      new SearchDept(DBNAME, VERSION, request.value, grade.value).open();
+      new DeptSearch(dbname, version, request.value, grade.value, college).open();
     });
 
     // Grade selection
     querySelector('#grade-select').onChange.listen((Event e) {
       var request = querySelector('#dept-select');
       var grade = e.target;
-      new SearchDept(DBNAME, VERSION, request.value, grade.value).open();
+      new DeptSearch(dbname, version, request.value, grade.value, college).open();
     });
 
     // Code searching
@@ -46,69 +44,69 @@ class Octable {
       deptSelect.value = '請選擇科系';
       var gradeSelect = querySelector('#grade-select');
       gradeSelect.value = '0';
+
       var request = e.target;
       var mode = querySelector('#search-mode');
       if (request.value != "") {
-        new SearchCode(DBNAME, VERSION, request.value, mode.value).open();
+        new CustomSearch(dbname, version, request.value, mode.value, college).open();
       } else {
-        var searchList = querySelector('#search-list');
-        searchList.children[0].children.clear();
+        var searchList = querySelector('#search-list')
+              ..children[0].children.clear();
       }
     });
   }
 
-  void _selectCollege() {
-    var body = querySelector('body');
-    var selectDialog = new DivElement();
-    selectDialog.classes.add('selectDialog');
+//  void _selectCollege() {
+//    var body = querySelector('body');
+//    var selectDialog = new DivElement()
+//          ..classes.add('selectDialog');
+//
+//    var select = new SelectElement()
+//          ..attributes['id'] = 'collegeSelection';
+//
+//    var colleges = {'中興大學': 'nchu', '成功大學': 'ncku'};
+//    for (var college in colleges.keys) {
+//      var option = new OptionElement()
+//            ..text = college
+//            ..value = colleges[college];
+//      select.append(option);
+//    }
+//
+//    var submit = new ButtonElement();
+//
+//    submit.attributes['id'] = 'collegeSubmit';
+//    submit.onClick.listen((Event e) {
+//      submit.remove();
+//      select.remove();
+//
+//      var loading = new DivElement()
+//            ..attributes['id'] = 'loading';
+//      selectDialog.append(loading);
+//
+//      _loadData(select.value);
+//    },
+//    onDone: () {
+//      var loading = querySelector('#loading')
+//            ..remove();
+//      selectDialog.remove();
+//    });
+//
+//    selectDialog
+//      ..append(select)
+//      ..append(submit);
+//    body.append(selectDialog);
+//  }
 
-    var select = new SelectElement();
-    select.attributes['id'] = 'collegeSelection';
-
-    var colleges = {'中興大學': 'nchu', '成功大學': 'ncku'};
-    for (var college in colleges.keys) {
-      var option = new OptionElement();
-      option.text = college;
-      option.value = colleges[college];
-      select.append(option);
-    }
-
-    var submit = new ButtonElement();
-
-    submit.attributes['id'] = 'collegeSubmit';
-    submit.onClick.listen((Event e) {
-      submit.remove();
-      select.remove();
-
-      var loading = new DivElement();
-      loading.attributes['id'] = 'loading';
-      selectDialog.append(loading);
-
-      _loadData(select.value);
-    },
-    onDone: () {
-      var loading = querySelector('#loading');
-      loading.remove();
-      selectDialog.remove();
-    });
-
-    selectDialog.append(select);
-    selectDialog.append(submit);
-    body.append(selectDialog);
-  }
-
-  void _loadData(String college) {
-    if (college != COLLEGE) {
-      IDB.deleteDatabase();
-      this.COLLEGE = college;
-    }
+  void _loadData() {
     Storage localStorage = window.localStorage;
     if (localStorage['dbOpened'] == 'true') {
-      new SearchDept('Octable', 1, 'open', '0').open();
-      var cellObj= new Cell();
-      cellObj.addSelected();
+      print('Loading data from indexedDB');
+
+      new DeptSearch(dbname, version, 'open', '0', college).open();
+      Cell.addSelected();
     } else {
-      print('Downloading JSON from server');
+      print('Downloading JSON from server...');
+
       var host = window.location.host;
       var url = 'http://$host/Octable/web/data/$college/$college.json';
       var request = HttpRequest.getString(url)
@@ -117,15 +115,14 @@ class Octable {
   }
 
   void _onDataLoaded(String responseText) {
-    jsonObj = JSON.decode(responseText);
-    new CreateDB(DBNAME, VERSION, jsonObj).open()
+    new CreateDB(dbname, version, JSON.decode(responseText), college).open()
     .then((Event e) {
-      new SearchDept('Octable', 1, 'open', '0').open();
+      new DeptSearch(dbname, version, 'open', '0', college).open();
     });
+
     Storage localStorage = window.localStorage;
     localStorage['dbOpened'] = 'true';
-    var cellObj= new Cell();
-    cellObj.addSelected();
+    localStorage['selectedCourses'] = '{}';
   }
 }
 

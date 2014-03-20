@@ -15,8 +15,8 @@ class IDB {
       .catchError(onError);
   }
 
-  static void deleteDatabase() {
-    window.indexedDB.deleteDatabase('Octable');
+  static void deleteDatabase(String dbname) {
+    window.indexedDB.deleteDatabase(dbname);
   }
 
   void initializeDatabase(VersionChangeEvent e) {
