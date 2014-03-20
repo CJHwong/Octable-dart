@@ -26,22 +26,26 @@ class Octable {
 
   void _prepareUI() {
     // Dept selection
-    querySelector('#department').onChange.listen((Event e) {
+    querySelector('#dept-select').onChange.listen((Event e) {
       var request = e.target;
-      var grade = querySelector('#grade');
+      var grade = querySelector('#grade-select');
       grade.value = '0';
       new SearchDept(DBNAME, VERSION, request.value, grade.value).open();
     });
 
     // Grade selection
-    querySelector('#grade').onChange.listen((Event e) {
-      var request = querySelector('#department');
+    querySelector('#grade-select').onChange.listen((Event e) {
+      var request = querySelector('#dept-select');
       var grade = e.target;
       new SearchDept(DBNAME, VERSION, request.value, grade.value).open();
     });
 
     // Code searching
     querySelector('#search-input').onInput.listen((Event e) {
+      var deptSelect = querySelector('#dept-select');
+      deptSelect.value = '請選擇科系';
+      var gradeSelect = querySelector('#grade-select');
+      gradeSelect.value = '0';
       var request = e.target;
       var mode = querySelector('#search-mode');
       if (request.value != "") {

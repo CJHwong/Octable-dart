@@ -4,11 +4,17 @@ import 'dart:html';
 import 'dart:convert';
 
 class Cell {
-  static String SELECTED = '#ADC7C5',
+  String SELECTED = '#ADC7C5',
                  CONFLICT = '#FF1C2D',
                  HOVERED = '#D6B86D';
 
+  bool cellConflict = false;
+
   void add(Map values) {
+    if (cellConflict) {
+      return;
+    }
+
     var timeList = values['time'].trim().split(',');
     timeList.forEach((String time) {
       var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
@@ -26,11 +32,6 @@ class Cell {
           var course = cell.children[0];
           course.style.backgroundColor = SELECTED;
           course.append(courseContent);
-
-          course.onDoubleClick.listen((Event e) {
-            var cell = e.target;
-            remove(cell.parent);
-          });
 
           cell.attributes['code'] = values['code'];
           cell.attributes['time'] = values['time'].trim();
@@ -58,8 +59,17 @@ class Cell {
     courseContent.append(courseObligatory);
 
     var courseElement = new LIElement();
+    var courseRemove = new AnchorElement();
+    courseRemove.text = '移除';
+    courseRemove.href = '#';
+    courseRemove.classes.add('remove-btn');
+    courseRemove.onClick.listen((Event e) {
+      remove(courseElement);
+    });
+    courseContent.append(courseRemove);
     courseElement.attributes['class'] = 'subject';
     courseElement.attributes['code'] = values['code'];
+    courseElement.attributes['time'] = values['time'].trim();
     courseElement.children.addAll([courseTitle, courseCode, courseContent]);
 
     var selectedCoursesList = querySelector('#selected-courses').children[0];
@@ -79,9 +89,11 @@ class Cell {
   }
 
   void remove(var clickedCell) {
-    if (clickedCell.attributes['time'] == null) {
-      return;
-    }
+    // Remove from localStorage
+    Storage localStorage = window.localStorage;
+    var selectedCourses = JSON.decode(localStorage['selectedCourses']);
+    selectedCourses.remove(clickedCell.attributes['code']);
+    localStorage['selectedCourses'] = JSON.encode(selectedCourses);
 
     // Remove from selected courses list
     var selectedCoursesList = querySelector('#selected-courses').children[0];
@@ -91,12 +103,6 @@ class Cell {
         break;
       }
     }
-
-    // Remove from localStorage
-    Storage localStorage = window.localStorage;
-    var selectedCourses = JSON.decode(localStorage['selectedCourses']);
-    selectedCourses.remove(clickedCell.attributes['code']);
-    localStorage['selectedCourses'] = JSON.encode(selectedCourses);
 
     var timeList = clickedCell.attributes['time'].split(',');
     timeList.forEach((String time) {
@@ -110,7 +116,6 @@ class Cell {
         cell.attributes.remove('time');
         course.attributes.remove('style');
         course.children.clear();
-        course.onDoubleClick.listen((Event e) {}).cancel();
       }
     });
   }
@@ -132,6 +137,7 @@ class Cell {
               if (cell.attributes['code'] == values['code']) {
                 return;
               } else {
+                cellConflict = true;
                 course.style.backgroundColor = CONFLICT;
               }
             } else {
@@ -145,6 +151,7 @@ class Cell {
             } else {
               course.style.backgroundColor = SELECTED;
             }
+            cellConflict = false;
           }
         }
       });

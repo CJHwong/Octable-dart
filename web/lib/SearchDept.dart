@@ -21,7 +21,7 @@ class SearchDept extends IDB {
     var store = trans.objectStore('Courses');
     var cursors = store.index('department').openCursor(autoAdvance: true);
 
-    var depts = []; // Record added dept name
+    var depts = ['請選擇科系']; // Record added dept name
     cursors.listen((cursor) {
       if (!depts.contains(cursor.value['department'])) {
         depts.add(cursor.value['department']);
@@ -29,7 +29,7 @@ class SearchDept extends IDB {
     },
     onDone: () {
       if (request == 'open') {
-        _addToCourseList(depts[0]);
+//        _addToCourseList(depts[1]);
         for (var dept in depts) {
           _addToDeptSelect(dept);
         }
@@ -40,7 +40,7 @@ class SearchDept extends IDB {
   }
 
   void _addToDeptSelect(String dept) {
-    var deptSelect = querySelector('#department');
+    var deptSelect = querySelector('#dept-select');
     var deptName = new OptionElement();
     deptName.value = dept;
     deptName.text = dept;

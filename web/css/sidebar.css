@@ -2,16 +2,19 @@
   background-color: #F9F9F9;
   display: inline-block;
   width: 26%;
-  height: 506px;
+  height: 556px;
   position: absolute;
   margin-left: 7px;
   border-radius: 3px;
 }
 
+#search-selector {
+  margin: 0px 0px 0px 7px;
+}
+
 #search-input {
   height: 30px;
   width: 48%;
-  margin: 10px 0px 10px 7px;
   padding: 0px 0px 0px 8px;
   border: 0px;
   border-radius: 4px;
@@ -21,12 +24,22 @@
 #dept-selector {
   display: block;
   height: 36px;
+  margin: 10px 0px 0px 7px;
 }
 
-#dept-selector select, #search-selector select {
+#dept-select {
+  width: 94px;
+  height: 36px;
+}
+
+#grade-select {
+  width: 48px;
+  height: 36px;
+}
+
+#search-input, #search-mode, #dept-select, #grade-select {
   background-color: #FFF;
   height: 30px;
-  margin: 0px 0px 10px 7px;
   border: 0px;
   border-radius: 3px;
   box-shadow: inset 0px 0px 2px black;
@@ -51,7 +64,7 @@
   margin-left: 5%;
   box-shadow: inset 0px 0px 7px;
   border-radius: 5px;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .course-list ul {
@@ -82,7 +95,7 @@
   text-align: right;
 }
 
-.obligatory-btn, .elective-btn {
+.obligatory-btn, .elective-btn, .remove-btn {
   padding: 1px 3px 1px 3px;
   color: white;
   text-decoration:none;
@@ -95,4 +108,9 @@
 
 .elective-btn {
   background-color: green;
+}
+
+.remove-btn {
+  background-color: red;
+  margin-left: 3px;
 }
