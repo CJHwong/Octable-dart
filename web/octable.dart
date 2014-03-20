@@ -100,7 +100,7 @@ class Octable {
   void _loadData() {
     Storage localStorage = window.localStorage;
     if (localStorage['dbOpened'] == 'true') {
-      print('Loading data from indexedDB');
+      print('Loading data from indexedDB...');
 
       new DeptSearch(dbname, version, 'open', '0', college).open();
       Cell.addSelected();

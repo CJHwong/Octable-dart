@@ -22,6 +22,10 @@ class Cell {
     selectedCourses[values['code']] = values;
     localStorage['selectedCourses'] = JSON.encode(selectedCourses);
 
+    // Increase credits counter
+    var creditsCounter = querySelector('#credits');
+    creditsCounter.text = (int.parse(creditsCounter.text) + int.parse(values['credits'])).toString();
+
     // Add to each cell
     List timeList = values['time'].trim().split(',');
     timeList.forEach((String time) {
@@ -35,8 +39,35 @@ class Cell {
         if (cell.attributes['code'] != null) {
           return;
         } else {
+          var timetable = querySelector('#timetable');
+          var courseTitle = new AnchorElement()
+                ..href = '#'
+                ..text = values['title']
+                ..onMouseOver.listen((Event e) {
+                  var courseDetail = new DivElement()
+                        ..attributes['id'] = 'course-detail'
+                        ..style.top = (cell.offsetTop + 48).toString() + 'px'
+                        ..style.left = (cell.parent.offsetLeft + cell.offsetWidth).toString() + 'px';
+                  var title = new SpanElement()
+                        ..text = '課程名稱: ${values["title"]}';
+                  var professor = new SpanElement()
+                        ..text = '授課教授: ${values["professor"]}';
+                  var credits = new SpanElement()
+                        ..text = '學分數: ${values["credits"]}';
+                  var location = new SpanElement()
+                        ..text = '授課教室: ${values["location"]}';
+                  courseDetail.children.addAll([title, professor, credits, location]);
+
+                  timetable.append(courseDetail);
+                })
+                ..onMouseLeave.listen((Event e) {
+                  var courseDetail = querySelector('#course-detail');
+                  courseDetail.remove();
+                });
+
           var courseContent = new SpanElement()
-                ..text = values['title'];
+                ..append(courseTitle);
+
           var course = cell.children[0]
                 ..style.backgroundColor = SELECTED
                 ..append(courseContent);
@@ -74,9 +105,10 @@ class Cell {
           ..href = '#'
           ..classes.add('remove-btn')
           ..onClick.listen((Event e) {
-            String code = courseElement.attributes['code'];
-            String time = courseElement.attributes['time'];
-            Cell.remove(code , time);
+            String code = values['code'];
+            String time = values['time'];
+            String credits = values['credits'];
+            Cell.remove(code , time, credits);
           });
     courseContent
       ..append(courseObligatory)
@@ -90,12 +122,16 @@ class Cell {
     print('Added $values');
   }
 
-  static void remove(String code, String time) {
+  static void remove(String code, String time, String credits) {
     // Remove from localStorage
     Storage localStorage = window.localStorage;
     var selectedCourses = JSON.decode(localStorage['selectedCourses'])
           ..remove(code);
     localStorage['selectedCourses'] = JSON.encode(selectedCourses);
+
+    // Decrease credits counter
+    var creditsCounter = querySelector('#credits');
+    creditsCounter.text = (int.parse(creditsCounter.text) - int.parse(credits)).toString();
 
     // Remove from each cell
     var timeList = time.split(',');

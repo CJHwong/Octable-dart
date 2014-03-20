@@ -56,6 +56,11 @@
   text-shadow: 1px 1px 3px #FFF;
 }
 
+#credits-counter {
+  position: absolute;
+  right: 33px;
+}
+
 .course-list {
   background-color: #EAEAEA;
   display: inline-block;

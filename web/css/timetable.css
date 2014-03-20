@@ -69,3 +69,20 @@
   padding: 2px 3px 2px 3px;
   border-radius: 4px;
 }
+
+#course-detail {
+  background-color: #FFFFFF;
+  width: 200px;
+  height: 80px;
+  padding: 10px 0px 10px 13px;
+  position: absolute;
+  z-index: 10;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px black;
+}
+
+#course-detail span {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+}
