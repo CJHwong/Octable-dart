@@ -8,12 +8,11 @@ import 'lib/DeptSearch.dart';
 import 'lib/CustomSearch.dart';
 
 class Octable {
-  var dbname, version, college;
+  var college, version;
 
-  Octable(String dbname, num version, String college) {
-    this.dbname = dbname;
-    this.version = version;
+  Octable(String college, num version) {
     this.college = college;
+    this.version = version;
   }
 
   void open() {
@@ -27,14 +26,14 @@ class Octable {
       var request = e.target;
       var grade = querySelector('#grade-select');
       grade.value = '0';
-      new DeptSearch(dbname, version, request.value, grade.value, college).open();
+      new DeptSearch(college, version, request.value, grade.value).open();
     });
 
     // Grade selection
     querySelector('#grade-select').onChange.listen((Event e) {
       var request = querySelector('#dept-select');
       var grade = e.target;
-      new DeptSearch(dbname, version, request.value, grade.value, college).open();
+      new DeptSearch(college, version, request.value, grade.value).open();
     });
 
     // Code searching
@@ -47,20 +46,42 @@ class Octable {
       var request = e.target;
       var mode = querySelector('#search-mode');
       if (request.value != "") {
-        new CustomSearch(dbname, version, request.value, mode.value, college).open();
+        new CustomSearch(college, version, request.value, mode.value).open();
       } else {
         var searchList = querySelector('#search-list')
               ..children[0].children.clear();
       }
     });
+
+    // College selection
+    Storage localStorage = window.localStorage;
+    if (localStorage['dbOpened'] == null) {
+      localStorage['dbOpened'] = '{}';
+    }
+    var colleges = {'nchu': '中興大學', 'ncku': '成功大學'};
+    var collegeSelect = querySelector('#college-select');
+    for (var key in colleges.keys) {
+      var opt = new OptionElement()
+            ..value = key
+            ..text = colleges[key];
+      collegeSelect.append(opt);
+    }
+    collegeSelect.value = college;
+    querySelector('#college-select').onChange.listen((Event e) {
+      print('Changing college...');
+      var option = e.target;
+      this.college = option.value;
+      _loadData();
+    });
   }
 
   void _loadData() {
+    var collegeSelect = querySelector('#college-select');
     Storage localStorage = window.localStorage;
-    if (localStorage['dbOpened'] == 'true') {
+    Map dbOpened = JSON.decode(localStorage['dbOpened']);
+    if (dbOpened.keys.contains(college)) {
       print('Loading data from indexedDB...');
-
-      new DeptSearch(dbname, version, 'open', '0', college).open();
+      new DeptSearch(college, version, 'open', '0').open();
       Cell.addSelected();
     } else {
       print('Downloading JSON from server...');
@@ -73,17 +94,19 @@ class Octable {
   }
 
   void _onDataLoaded(String responseText) {
-    new CreateDB(dbname, version, JSON.decode(responseText), college).open()
+    new CreateDB(college, version, JSON.decode(responseText)).open()
     .then((Event e) {
-      new DeptSearch(dbname, version, 'open', '0', college).open();
+      new DeptSearch(college, version, 'open', '0').open();
     });
 
     Storage localStorage = window.localStorage;
-    localStorage['dbOpened'] = 'true';
+    Map dbOpened = JSON.decode(localStorage['dbOpened']);
+    dbOpened[college] = '';
+    localStorage['dbOpened'] = JSON.encode(dbOpened);
     localStorage['selectedCourses'] = '{}';
   }
 }
 
 void main() {
-  new Octable('Octable', 1, 'nchu').open();
+  new Octable('nchu', 1).open();
 }

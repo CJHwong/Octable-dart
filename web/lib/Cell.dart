@@ -11,6 +11,10 @@ class Cell {
   static bool cellConflict = false;
 
   static void add(Map values, {bool auto: false}) {
+    if (values['time'] == '') {
+      return;
+    }
+
     // Prevent conflict or selected courses from being add
     Storage localStorage = window.localStorage;
     Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
@@ -163,39 +167,43 @@ class Cell {
   }
 
   static void display(Map values, String behave) {
-      var timeList = values['time'].trim().split(',');
-      timeList.forEach((String time) {
-        var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
-        var day = days[int.parse(time[0]) % 7];
-        time = time.substring(1, time.length);
-
-        for (var t in time.split('')) {
-          var cell = querySelector('#$day' + '-$t');
-          var course = cell.children[0];
-
-          if (behave == 'show') {
-            if (cell.attributes['code'] != null) {
-              if (cell.attributes['code'] == values['code']) {
-                cellConflict = true;
-                return;
-              } else {
-                cellConflict = true;
-                course.style.backgroundColor = CONFLICT;
-              }
-            } else {
-              course.style.backgroundColor = HOVERED;
-            }
-          } else if (behave == 'hide') {
-            if (course.innerHtml.isEmpty) {
-              course.attributes.remove('style');
-            } else {
-              course.style.backgroundColor = SELECTED;
-            }
-            cellConflict = false;
-          }
-        }
-      });
+    if (values['time'] == '') {
+      return;
     }
+
+    var timeList = values['time'].trim().split(',');
+    timeList.forEach((String time) {
+      var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
+      var day = days[int.parse(time[0]) % 7];
+      time = time.substring(1, time.length);
+
+      for (var t in time.split('')) {
+        var cell = querySelector('#$day' + '-$t');
+        var course = cell.children[0];
+
+        if (behave == 'show') {
+          if (cell.attributes['code'] != null) {
+            if (cell.attributes['code'] == values['code']) {
+              cellConflict = true;
+              return;
+            } else {
+              cellConflict = true;
+              course.style.backgroundColor = CONFLICT;
+            }
+          } else {
+            course.style.backgroundColor = HOVERED;
+          }
+        } else if (behave == 'hide') {
+          if (course.innerHtml.isEmpty) {
+            course.attributes.remove('style');
+          } else {
+            course.style.backgroundColor = SELECTED;
+          }
+          cellConflict = false;
+        }
+      }
+    });
+  }
 
   static void addSelected() {
     Storage localStorage = window.localStorage;

@@ -7,20 +7,19 @@ import 'Cell.dart';
 
 class CustomSearch extends IDB {
   var _db;
-  var dbname, version, request, mode, indexName;
+  var dbname, version, request, mode;
 
-  CustomSearch(String dbname, num version, String request, String mode, String indexName) {
+  CustomSearch(String dbname, num version, String request, String mode) {
     this.dbname = dbname;
     this.version = version;
     this.request = request;
     this.mode = mode;
-    this.indexName = indexName;
   }
 
   void onDbOpened(Database db) {
     _db = db;
-    var trans = _db.transaction(indexName, 'readonly');
-    var store = trans.objectStore(indexName);
+    var trans = _db.transaction('Courses', 'readonly');
+    var store = trans.objectStore('Courses');
     var cursors = store.index(mode).openCursor(autoAdvance: false);
 
     var courseList = querySelector('#search-list').children[0]

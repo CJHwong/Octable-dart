@@ -7,20 +7,19 @@ import 'Cell.dart';
 
 class DeptSearch extends IDB {
   var _db;
-  var dbname, version, request, grade, indexName;
+  var dbname, version, request, grade;
 
-  DeptSearch(String dbname, num version, String request, String grade, String indexName) {
+  DeptSearch(String dbname, num version, String request, String grade) {
     this.dbname = dbname;
     this.version = version;
     this.request = request;
     this.grade = grade;
-    this.indexName = indexName;
   }
 
   void onDbOpened(Database db) {
     _db = db;
-    var trans = _db.transaction(indexName, 'readonly');
-    var store = trans.objectStore(indexName);
+    var trans = _db.transaction('Courses', 'readonly');
+    var store = trans.objectStore('Courses');
     var cursors = store.index('department').openCursor(autoAdvance: true);
 
     List depts = ['請選擇科系']; // Record added dept name
@@ -31,8 +30,9 @@ class DeptSearch extends IDB {
     },
     onDone: () {
       if (request == 'open') {
+        var deptSelect = querySelector('#dept-select')
+              ..children.clear();
         for (var dept in depts) {
-          var deptSelect = querySelector('#dept-select');
           var deptName = new OptionElement()
                 ..value = dept
                 ..text = dept;
@@ -45,8 +45,8 @@ class DeptSearch extends IDB {
   }
 
   void _updateSearchList(String dept) {
-    var trans = _db.transaction(indexName, 'readonly');
-    var store = trans.objectStore(indexName);
+    var trans = _db.transaction('Courses', 'readonly');
+    var store = trans.objectStore('Courses');
     var cursors = store.index('department').openCursor(key: dept, autoAdvance: true);
 
     var courseList = querySelector('#search-list').children[0]
