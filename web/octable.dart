@@ -19,7 +19,6 @@ class Octable {
   void open() {
     this._prepareUI();
     this._loadData();
-//    this._selectCollege();
   }
 
   void _prepareUI() {
@@ -55,47 +54,6 @@ class Octable {
       }
     });
   }
-
-//  void _selectCollege() {
-//    var body = querySelector('body');
-//    var selectDialog = new DivElement()
-//          ..classes.add('selectDialog');
-//
-//    var select = new SelectElement()
-//          ..attributes['id'] = 'collegeSelection';
-//
-//    var colleges = {'中興大學': 'nchu', '成功大學': 'ncku'};
-//    for (var college in colleges.keys) {
-//      var option = new OptionElement()
-//            ..text = college
-//            ..value = colleges[college];
-//      select.append(option);
-//    }
-//
-//    var submit = new ButtonElement();
-//
-//    submit.attributes['id'] = 'collegeSubmit';
-//    submit.onClick.listen((Event e) {
-//      submit.remove();
-//      select.remove();
-//
-//      var loading = new DivElement()
-//            ..attributes['id'] = 'loading';
-//      selectDialog.append(loading);
-//
-//      _loadData(select.value);
-//    },
-//    onDone: () {
-//      var loading = querySelector('#loading')
-//            ..remove();
-//      selectDialog.remove();
-//    });
-//
-//    selectDialog
-//      ..append(select)
-//      ..append(submit);
-//    body.append(selectDialog);
-//  }
 
   void _loadData() {
     Storage localStorage = window.localStorage;

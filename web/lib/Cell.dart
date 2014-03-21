@@ -167,7 +167,6 @@ class Cell {
       timeList.forEach((String time) {
         var days = ['sun', 'mon', 'tue', 'wed', 'thr', 'fri', 'sat'];
         var day = days[int.parse(time[0]) % 7];
-        print(day);
         time = time.substring(1, time.length);
 
         for (var t in time.split('')) {
