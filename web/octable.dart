@@ -73,6 +73,61 @@ class Octable {
       this.college = option.value;
       _loadData();
     });
+
+    // Touch events
+    var currentColumn = 0;
+    var touchStartX, touchStartY;
+    var touchDistanceX, touchDistanceY;
+    var threshold = 50;
+
+    var column = querySelectorAll('.column')
+          ..onTouchStart.listen((TouchEvent e) {
+            touchDistanceX = 0;
+            touchDistanceY = 0;
+
+            var touchObj = e.changedTouches[0];
+            touchStartX = touchObj.page.x;
+            touchStartY = touchObj.page.y;
+
+            e.preventDefault();
+          })
+          ..onTouchMove.listen((TouchEvent e) {
+            e.preventDefault();
+          })
+          ..onTouchEnd.listen((TouchEvent e) {
+            var touchObj = e.changedTouches[0];
+            touchDistanceX = touchObj.page.x - touchStartX;
+            touchDistanceY = touchObj.page.y - touchStartY;
+
+            if (touchDistanceY < 50 && touchDistanceX > 100) {
+              var columns = ['Mon', 'Tue', 'Wed', 'Thr',
+                             'Fri', 'Sat', 'Sun'];
+              if (currentColumn == 6) {
+                return;
+              }
+              querySelector('#' + columns[currentColumn])
+                ..style.display = 'none';
+              currentColumn += 1;
+              querySelector('#' + columns[currentColumn])
+                ..style.display = 'inline-block';
+                //..style.left = '0px';
+            } else if (touchDistanceY < 50 && touchDistanceX < -100) {
+              var columns = ['Mon', 'Tue', 'Wed', 'Thr',
+                             'Fri', 'Sat', 'Sun'];
+              if (currentColumn == 0) {
+                return;
+              }
+              querySelector('#' + columns[currentColumn])
+                ..attributes.remove('style');
+              currentColumn -= 1;
+              querySelector('#' + columns[currentColumn])
+                ..style.display = 'inline-block';
+            } else {
+              print('top or down');
+            }
+
+            e.preventDefault();
+          });
   }
 
   void _loadData() {

@@ -47,9 +47,35 @@ class Cell {
           var courseTitle = new AnchorElement()
                 ..href = '#'
                 ..text = values['title']
+                ..onClick.listen((Event e) {
+                  var courseBox = querySelector('#course-box');
+                  courseBox.remove();
+
+                  var detailContainer = new DivElement()
+                        ..attributes['id'] = 'course-detail-container'
+                        ..onClick.listen((Event e) {
+                          var container = querySelector('#course-detail-container');
+                          container.remove();
+                        });
+                  var detail = new DivElement()
+                        ..attributes['id'] = 'course-detail';
+                  var title = new SpanElement()
+                        ..text = '課程名稱: ${values["title"]}';
+                  var professor = new SpanElement()
+                        ..text = '授課教授: ${values["professor"]}';
+                  var credits = new SpanElement()
+                        ..text = '學分數: ${values["credits"]}';
+                  var location = new SpanElement()
+                        ..text = '授課教室: ${values["location"]}';
+                  detail.children.addAll([title, professor, credits, location]);
+                  detailContainer.append(detail);
+
+                  var body = querySelector('body')
+                      ..append(detailContainer);
+                })
                 ..onMouseOver.listen((Event e) {
-                  var courseDetail = new DivElement()
-                        ..attributes['id'] = 'course-detail'
+                  var courseBox = new DivElement()
+                        ..attributes['id'] = 'course-box'
                         ..style.top = (cell.offsetTop + 48).toString() + 'px'
                         ..style.left = (cell.parent.offsetLeft + cell.offsetWidth).toString() + 'px';
                   var title = new SpanElement()
@@ -60,13 +86,15 @@ class Cell {
                         ..text = '學分數: ${values["credits"]}';
                   var location = new SpanElement()
                         ..text = '授課教室: ${values["location"]}';
-                  courseDetail.children.addAll([title, professor, credits, location]);
+                  courseBox.children.addAll([title, professor, credits, location]);
 
-                  timetable.append(courseDetail);
+                  timetable.append(courseBox);
                 })
                 ..onMouseLeave.listen((Event e) {
-                  var courseDetail = querySelector('#course-detail');
-                  courseDetail.remove();
+                  var courseBox = querySelector('#course-box');
+                  if (courseBox != null) {
+                    courseBox.remove();
+                  }
                 });
 
           var courseContent = new SpanElement()

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Octable</title>
-<link rel="shortcut icon" href="octable.png" >
+<link rel="shortcut icon" href="octable.png">
 <link rel="stylesheet" href="octable.css">
 </head>
 <body>
@@ -282,7 +282,7 @@
           <div class="course"></div>
         </div>
       </div>
-           <div class="column" id="Sun">
+      <div class="column" id="Sun">
         <div class="cell" id="sun-0">Sun</div>
         <div class="cell" id="sun-1">
           <div class="course"></div>
@@ -331,8 +331,7 @@
 
     <div id="sidebar">
       <div id="dept-selector">
-        <select id="dept-select"></select>
-        <select id="grade-select">
+        <select id="dept-select"></select> <select id="grade-select">
           <option value="0">全年級</option>
           <option value="1">一</option>
           <option value="2">二</option>
@@ -341,8 +340,8 @@
         </select>
       </div>
       <div id="search-selector">
-        <input id="search-input" type="text" placeholder="Type a keyword">
-        <select id="search-mode">
+        <input id="search-input" type="text"
+          placeholder="Type a keyword"> <select id="search-mode">
           <option value="title">課程名稱</option>
           <option value="code">課程代碼</option>
           <option value="time">課程時間</option>
@@ -353,7 +352,9 @@
         <ul></ul>
       </div>
       <h1 class="legend">已選修課程</h1>
-      <h1 class="legend" id="credits-counter"><span>目前學分: </span><span id="credits">0</span></h1>
+      <h1 class="legend" id="credits-counter">
+        <span>目前學分: </span><span id="credits">0</span>
+      </h1>
       <div class="course-list" id="selected-courses">
         <ul></ul>
       </div>
