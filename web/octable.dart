@@ -73,56 +73,6 @@ class Octable {
       this.college = option.value;
       _loadData();
     });
-
-    // Touch events
-    var currentColumn = 0;
-    var touchStartX, touchStartY;
-    var touchDistanceX, touchDistanceY;
-    var threshold = 50;
-    var timetableLeft = 0;
-
-    var column = querySelectorAll('.column')
-          ..onTouchStart.listen((TouchEvent e) {
-            touchDistanceX = 0;
-            touchDistanceY = 0;
-
-            var touchObj = e.changedTouches[0];
-            touchStartX = touchObj.page.x;
-            touchStartY = touchObj.page.y;
-
-            var timetable = querySelector('#timetable')
-                  ..style.left = timetableLeft.toString() + 'px';
-          })
-          ..onTouchMove.listen((TouchEvent e) {
-            var touchObj = e.changedTouches[0];
-            touchDistanceX = touchObj.page.x - touchStartX;
-            touchDistanceY = touchObj.page.y - touchStartY;
-          })
-          ..onTouchEnd.listen((TouchEvent e) {
-            if (touchDistanceY < 50 && touchDistanceX < -100) {
-              var columns = ['Mon', 'Tue', 'Wed', 'Thr',
-                             'Fri', 'Sat', 'Sun'];
-              if (currentColumn == 6) {
-                return;
-              }
-              var timetable = querySelector('#timetable');
-              timetableLeft -= timetable.clientWidth;
-              timetable.style.left = timetableLeft.toString() + 'px';
-              currentColumn += 1;
-            } else if (touchDistanceY < 50 && touchDistanceX > 100) {
-              var columns = ['Mon', 'Tue', 'Wed', 'Thr',
-                             'Fri', 'Sat', 'Sun'];
-              if (currentColumn == 0) {
-                return;
-              }
-              var timetable = querySelector('#timetable');
-              timetableLeft += timetable.clientWidth;
-              timetable.style.left = timetableLeft.toString() + 'px';
-              currentColumn -= 1;
-            } else {
-              print('top or down');
-            }
-          });
   }
 
   void _loadData() {

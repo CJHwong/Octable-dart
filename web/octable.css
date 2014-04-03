@@ -27,7 +27,8 @@ body {
 #content-container {
   display: relative;
   width: 100%;
-  height: calc(100% - 48px);
-  margin-top: 48px;
+  height: calc(100% - 50px);
+  margin-top: 50px;
   left: calc(50% - 455px);
+  box-sizing: border-box;
 }

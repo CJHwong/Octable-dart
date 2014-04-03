@@ -2,19 +2,20 @@
   background-color: #DEDEDE;
   display: inline-block;
   width: 637px;
-  height: calc(40px * 15 - 17px);
+  height: calc(40px * 15 - 20px);
   position: relative;
   left: inherit;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 .column {
   display: inline-block;
   width: 91px;
-  height: calc(40px * 15 - 17px);
+  height: calc(40px * 15 - 20px);
   position: absolute;
   font-family: Arial;
   font-size: 0.7em;
+  color: grey;
 }
 
 .column:nth-child(2) {

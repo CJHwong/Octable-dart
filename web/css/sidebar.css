@@ -7,7 +7,7 @@
   margin-left: 7px;
   left: calc(50% - 455px + 644px);
   border-radius: 3px;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 #dept-select {
