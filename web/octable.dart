@@ -92,14 +92,14 @@ class Octable {
             e.preventDefault();
           })
           ..onTouchMove.listen((TouchEvent e) {
-            e.preventDefault();
+            //e.preventDefault();
           })
           ..onTouchEnd.listen((TouchEvent e) {
             var touchObj = e.changedTouches[0];
             touchDistanceX = touchObj.page.x - touchStartX;
             touchDistanceY = touchObj.page.y - touchStartY;
 
-            if (touchDistanceY < 50 && touchDistanceX > 100) {
+            if (touchDistanceY < 50 && touchDistanceX < -100) {
               var columns = ['Mon', 'Tue', 'Wed', 'Thr',
                              'Fri', 'Sat', 'Sun'];
               if (currentColumn == 6) {
@@ -111,7 +111,7 @@ class Octable {
               querySelector('#' + columns[currentColumn])
                 ..style.display = 'inline-block';
                 //..style.left = '0px';
-            } else if (touchDistanceY < 50 && touchDistanceX < -100) {
+            } else if (touchDistanceY < 50 && touchDistanceX > 100) {
               var columns = ['Mon', 'Tue', 'Wed', 'Thr',
                              'Fri', 'Sat', 'Sun'];
               if (currentColumn == 0) {
