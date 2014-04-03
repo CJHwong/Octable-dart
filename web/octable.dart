@@ -11,7 +11,11 @@ class Octable {
   var college, version;
 
   Octable(String college, num version) {
-    this.college = college;
+    Storage localStorage = window.localStorage;
+    if (localStorage['college'] == null) {
+      localStorage['college'] = college;
+    }
+    this.college = localStorage['college'];
     this.version = version;
   }
 
@@ -58,7 +62,7 @@ class Octable {
     if (localStorage['dbOpened'] == null) {
       localStorage['dbOpened'] = '{}';
     }
-    var colleges = {'nchu': '中興大學', 'ncku': '成功大學'};
+    var colleges = {'nchu': '中興大學', 'ncku': '成功大學', 'ntnu': '台灣師範大學'};
     var collegeSelect = querySelector('#college-select');
     for (var key in colleges.keys) {
       var opt = new OptionElement()
@@ -66,11 +70,12 @@ class Octable {
             ..text = colleges[key];
       collegeSelect.append(opt);
     }
-    collegeSelect.value = college;
+    collegeSelect.value = localStorage['college'];
     querySelector('#college-select').onChange.listen((Event e) {
       print('Changing college...');
       var option = e.target;
       this.college = option.value;
+      localStorage['college'] = option.value;
       _loadData();
     });
   }

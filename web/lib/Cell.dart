@@ -28,7 +28,7 @@ class Cell {
 
     // Increase credits counter
     var creditsCounter = querySelector('#credits');
-    creditsCounter.text = (int.parse(creditsCounter.text) + int.parse(values['credits'])).toString();
+    creditsCounter.text = (double.parse(creditsCounter.text) + double.parse(values['credits'])).toString();
 
     // Add to each cell
     List timeList = values['time'].trim().split(',');
@@ -76,7 +76,7 @@ class Cell {
                 ..onMouseOver.listen((Event e) {
                   var courseBox = new DivElement()
                         ..attributes['id'] = 'course-box'
-                        ..style.top = (cell.offsetTop + 48).toString() + 'px'
+                        ..style.top = (cell.offsetTop).toString() + 'px'
                         ..style.left = (cell.parent.offsetLeft + cell.offsetWidth).toString() + 'px';
                   var title = new SpanElement()
                         ..text = '課程名稱: ${values["title"]}';
@@ -163,7 +163,7 @@ class Cell {
 
     // Decrease credits counter
     var creditsCounter = querySelector('#credits');
-    creditsCounter.text = (int.parse(creditsCounter.text) - int.parse(credits)).toString();
+    creditsCounter.text = (double.parse(creditsCounter.text) - double.parse(credits)).toString();
 
     // Remove from each cell
     var timeList = time.split(',');

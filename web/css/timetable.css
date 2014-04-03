@@ -145,8 +145,7 @@
 #course-detail {
   background-color: #FFFFFF;
   margin: 0px auto;
-  width: 200px;
-  height: 80px;
+  width: 20%;
   padding: 10px 0px 10px 13px;
   position: relative;
   top: calc(50% - 100px);  
@@ -156,8 +155,6 @@
 
 #course-box {
   background-color: #FFFFFF;
-  width: 200px;
-  height: 80px;
   padding: 10px 0px 10px 13px;
   position: absolute;
   z-index: 10;
