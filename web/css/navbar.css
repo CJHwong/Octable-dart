@@ -7,3 +7,10 @@
   z-index: 20;
   box-shadow: 1px 1px 3px #141414;
 }
+
+#export-svg {
+  position: fixed;
+  left: calc(50% - 315px;);
+  top: 10px;
+  overflow: auto;
+}

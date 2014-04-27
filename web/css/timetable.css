@@ -132,16 +132,6 @@
   border-radius: 4px;
 }
 
-#course-detail-container {
-  background-color: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 20;
-}
-
 #course-detail {
   background-color: #FFFFFF;
   margin: 0px auto;

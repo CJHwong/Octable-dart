@@ -2,6 +2,7 @@ library Octable;
 
 import 'dart:html';
 import 'dart:convert';
+import 'lib/ExportSVG.dart';
 import 'lib/Cell.dart';
 import 'lib/CreateDB.dart';
 import 'lib/DeptSearch.dart';
@@ -78,6 +79,12 @@ class Octable {
       localStorage['college'] = option.value;
       _loadData();
     });
+
+    // Export button
+    var exportBtn = querySelector('#export-btn')
+          ..onClick.listen((Event e) {
+            ExportSVG.exportToSVG();
+          });
   }
 
   void _loadData() {

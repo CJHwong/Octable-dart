@@ -24,6 +24,25 @@ body {
   padding: 0;
 }
 
+#popup-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  overflow-y: visible;
+}
+
+#export-svg {
+  position: absolute;
+  width: 652px;
+  height: 100%;
+  left: calc(50% - 317.5px);
+  overflow-x: hidden;
+}
+
 #content-container {
   display: relative;
   width: 100%;

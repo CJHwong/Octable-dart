@@ -52,9 +52,9 @@ class Cell {
                   courseBox.remove();
 
                   var detailContainer = new DivElement()
-                        ..attributes['id'] = 'course-detail-container'
+                        ..attributes['id'] = 'popup-container'
                         ..onClick.listen((Event e) {
-                          var container = querySelector('#course-detail-container');
+                          var container = querySelector('#popup-container');
                           container.remove();
                         });
                   var detail = new DivElement()
