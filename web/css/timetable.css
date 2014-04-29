@@ -145,6 +145,7 @@
 
 #course-box {
   background-color: #FFFFFF;
+  width: 250px;
   padding: 10px 0px 10px 13px;
   position: absolute;
   z-index: 10;

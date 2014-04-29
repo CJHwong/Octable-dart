@@ -14,13 +14,34 @@ class ExportSVG {
         var date = int.parse(day[0]);
         var times = day.substring(1, day.length).split('');
         for (var time in times) {
-          time = int.parse(time);
+          var to_time = {'1': 1, '2': 2, '3': 3, '4': 4,
+                         'N': 5, '5': 6, '6': 7, '7': 8,
+                         '8': 9, '9': 10, 'A': 11, 'B': 12,
+                         'C': 13, 'D': 14}; 
+          time = to_time[time];
+          
+          var x = (45/3 + 91 * (date-1)).toString();
           
           var text = new TextElement()
-              ..attributes['x'] = (45/3 + 91 * (date-1)).toString()
-              ..attributes['y'] = (20/3 + 40 * time).toString()
-              ..attributes['font-size'] = '12'
-              ..text = selectedCourses[key]['title'];
+              ..attributes['width'] = '91'
+              ..attributes['height'] = '40'
+              ..attributes['x'] = x
+              ..attributes['y'] = (20/5 + 40 * time).toString()
+              ..attributes['font-size'] = '12';
+          
+          var title = [];
+          for (var i = 0; i < selectedCourses[key]['title'].length; i += 5) {
+            var end = i + 5 < selectedCourses[key]['title'].length ? i + 5:selectedCourses[key]['title'].length;
+            title.add(selectedCourses[key]['title'].substring(i, end));
+          }
+          for (var part in title) {
+            var tspan = new TSpanElement()
+                  ..attributes['x'] = x
+                  ..attributes['dy'] = (13 * title.indexOf(part)).toString()
+                  ..text = part;
+
+            text.append(tspan);
+          }
           
           svg.append(text);
         }
@@ -32,6 +53,7 @@ class ExportSVG {
     
   static SvgSvgElement createTable() {
     var svg = new SvgSvgElement()
+          ..attributes['version'] = '1.2'
           ..attributes['id'] = 'export-svg'
           ..attributes['baseProfile'] = 'full'
           ..attributes['width'] = '637'
