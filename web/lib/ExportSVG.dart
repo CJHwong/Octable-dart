@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:svg';
 
 class ExportSVG {
-  static SvgSvgElement bindCourse(SvgSvgElement svg) {
+  SvgSvgElement bindCourse(SvgSvgElement svg) {
     Storage localStorage = window.localStorage;
     Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
 
@@ -63,13 +63,13 @@ class ExportSVG {
     return svg;
   }
 
-  static SvgSvgElement createTable() {
+  SvgSvgElement createTable() {
     SvgSvgElement svg = new SvgSvgElement()
         ..attributes['version'] = '1.2'
         ..attributes['id'] = 'export-svg'
         ..attributes['baseProfile'] = 'full'
         ..attributes['width'] = '637'
-        ..attributes['height'] = '620'
+        ..attributes['height'] = '580'
         ..attributes['xmlns'] = 'http://www.w3.org/2000/svg';
     // Draw Cells
     for (int i = 0; i < 15; i++) {
@@ -107,16 +107,17 @@ class ExportSVG {
       svg.append(text);
     }
 
-    svg = ExportSVG.bindCourse(svg);
+    svg = bindCourse(svg);
 
     return svg;
   }
 
-  static void exportToSVG() {
+  static void displaySVG() {
+    ExportSVG export = new ExportSVG();
     BodyElement body = querySelector('body')..style.overflow = 'hidden';
     DivElement container = new DivElement()
         ..id = 'popup-container'
-        ..append(ExportSVG.createTable())
+        ..append(export.createTable())
         ..onClick.listen((Event e) {
           DivElement popupContainer = querySelector('#popup-container');
           popupContainer.remove();

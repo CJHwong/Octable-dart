@@ -29,7 +29,7 @@ class Octable {
   void _prepareUI() {
     // Dept selection
     querySelector('#dept-select').onChange.listen((Event e) {
-      var request = e.target;
+      SelectElement request = e.target;
       SelectElement grade = querySelector('#grade-select');
       grade.value = '0';
       new DeptSearch(college, version, request.value, grade.value).open();
@@ -38,7 +38,7 @@ class Octable {
     // Grade selection
     querySelector('#grade-select').onChange.listen((Event e) {
       SelectElement request = querySelector('#dept-select');
-      var grade = e.target;
+      SelectElement grade = e.target;
       new DeptSearch(college, version, request.value, grade.value).open();
     });
 
@@ -49,7 +49,7 @@ class Octable {
       SelectElement gradeSelect = querySelector('#grade-select');
       gradeSelect.value = '0';
 
-      var request = e.target;
+      InputElement request = e.target;
       SelectElement mode = querySelector('#search-mode');
       if (request.value != "") {
         new CustomSearch(college, version, request.value, mode.value).open();
@@ -78,7 +78,7 @@ class Octable {
     collegeSelect.value = localStorage['college'];
     querySelector('#college-select').onChange.listen((Event e) {
       print('Changing college...');
-      var option = e.target;
+      SelectElement option = e.target;
       this.college = option.value;
       localStorage['college'] = option.value;
       _loadData();
@@ -86,7 +86,14 @@ class Octable {
 
     // Export button
     ButtonElement exportBtn = querySelector('#export-btn')..onClick.listen((Event e) {
-          ExportSVG.exportToSVG();
+          ExportSVG export = new ExportSVG();
+          var exportContent = export.createTable().outerHtml;
+          Blob blob = new Blob([exportContent]);
+          AnchorElement downloadSvg = new AnchorElement()
+              ..text = 'Export'
+              ..href = Url.createObjectUrlFromBlob(blob)
+              ..attributes['download'] = 'timetatable.svg'
+              ..dispatchEvent(new CustomEvent('click'));
         });
   }
 

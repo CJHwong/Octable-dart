@@ -5,7 +5,7 @@
   height: 556px;
   position: absolute;
   margin-left: 7px;
-  left: calc(50% -       455px +       644px);
+  left: calc(50% -         455px +         644px);
   border-radius: 3px;
   box-sizing: border-box;
 }
@@ -19,13 +19,13 @@
 }
 
 #search-input {
-  width: calc(85% -       80px);
+  width: calc(85% -         80px);
   padding: 0px 0px 0px 8px;
 }
 
 #search-mode {
   position: absolute;
-  left: calc(85% -       63px);
+  left: calc(85% -         63px);
   width: 80px
 }
 
@@ -59,7 +59,7 @@
   background-color: #EAEAEA;
   display: inline-block;
   width: 90%;
-  height: calc(46% -       36px);
+  height: calc(46% -         36px);
   margin-left: 5%;
   box-shadow: inset 0px 0px 7px;
   border-radius: 5px;

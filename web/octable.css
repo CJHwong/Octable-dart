@@ -39,15 +39,15 @@ body {
   position: absolute;
   width: 652px;
   height: 100%;
-  left: calc(50% -       317.5px);
+  left: calc(50% -         317.5px);
   overflow-x: hidden;
 }
 
 #content-container {
   display: relative;
   width: 100%;
-  height: calc(100% -       50px);
+  height: calc(100% -         50px);
   margin-top: 50px;
-  left: calc(50% -       455px);
+  left: calc(50% -         455px);
   box-sizing: border-box;
 }

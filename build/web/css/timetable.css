@@ -2,7 +2,7 @@
   background-color: #DEDEDE;
   display: inline-block;
   width: 637px;
-  height: calc(40px *       15 -       20px);
+  height: calc(40px *         15 -         20px);
   position: relative;
   left: inherit;
   box-sizing: border-box;
@@ -11,7 +11,7 @@
 .column {
   display: inline-block;
   width: 91px;
-  height: calc(40px *       15 -       20px);
+  height: calc(40px *         15 -         20px);
   position: absolute;
   font-family: Arial;
   font-size: 0.7em;
@@ -19,36 +19,36 @@
 }
 
 .column:nth-child(2) {
-  left: calc(91px *       1);
+  left: calc(91px *         1);
 }
 
 .column:nth-child(3) {
-  left: calc(91px *       2);
+  left: calc(91px *         2);
 }
 
 .column:nth-child(4) {
-  left: calc(91px *       3);
+  left: calc(91px *         3);
 }
 
 .column:nth-child(5) {
-  left: calc(91px *       4);
+  left: calc(91px *         4);
 }
 
 .column:nth-child(6) {
-  left: calc(91px *       5);
+  left: calc(91px *         5);
 }
 
 .column:nth-child(7) {
-  left: calc(91px *       6);
+  left: calc(91px *         6);
 }
 
 /* Fix columns' position at lower resolution */
 @media ( max-width : 951px) {
   #timetable {
-    left: calc(0px +       10px);
+    left: calc(0px +         10px);
   }
   #sidebar {
-    left: calc(644px +       10px);
+    left: calc(644px +         10px);
   }
 }
 
@@ -84,59 +84,59 @@
 }
 
 .time-tag:nth-child(8) {
-  top: calc(15px +       40px *       0);
+  top: calc(15px +         40px *         0);
 }
 
 .time-tag:nth-child(9) {
-  top: calc(15px +       40px *       1);
+  top: calc(15px +         40px *         1);
 }
 
 .time-tag:nth-child(10) {
-  top: calc(15px +       40px *       2);
+  top: calc(15px +         40px *         2);
 }
 
 .time-tag:nth-child(11) {
-  top: calc(15px +       40px *       3);
+  top: calc(15px +         40px *         3);
 }
 
 .time-tag:nth-child(12) {
-  top: calc(15px +       40px *       4);
+  top: calc(15px +         40px *         4);
 }
 
 .time-tag:nth-child(13) {
-  top: calc(15px +       40px *       5);
+  top: calc(15px +         40px *         5);
 }
 
 .time-tag:nth-child(14) {
-  top: calc(15px +       40px *       6);
+  top: calc(15px +         40px *         6);
 }
 
 .time-tag:nth-child(15) {
-  top: calc(15px +       40px *       7);
+  top: calc(15px +         40px *         7);
 }
 
 .time-tag:nth-child(16) {
-  top: calc(15px +       40px *       8);
+  top: calc(15px +         40px *         8);
 }
 
 .time-tag:nth-child(17) {
-  top: calc(15px +       40px *       9);
+  top: calc(15px +         40px *         9);
 }
 
 .time-tag:nth-child(18) {
-  top: calc(15px +       40px *       10);
+  top: calc(15px +         40px *         10);
 }
 
 .time-tag:nth-child(19) {
-  top: calc(15px +       40px *       11);
+  top: calc(15px +         40px *         11);
 }
 
 .time-tag:nth-child(20) {
-  top: calc(15px +       40px *       12);
+  top: calc(15px +         40px *         12);
 }
 
 .time-tag:nth-child(21) {
-  top: calc(15px +       40px *       13);
+  top: calc(15px +         40px *         13);
 }
 
 .course {
@@ -154,7 +154,7 @@
   width: 20%;
   padding: 10px 0px 10px 13px;
   position: relative;
-  top: calc(50% -       100px);
+  top: calc(50% -         100px);
   border-radius: 3px;
   box-shadow: 1px 1px 1px black;
 }

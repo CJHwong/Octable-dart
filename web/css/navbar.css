@@ -10,7 +10,7 @@
 
 #export-svg {
   position: fixed;
-  left: calc(50% -       315px; );
+  left: calc(50% -         315px; );
   top: 10px;
   overflow: auto;
 }
