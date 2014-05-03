@@ -1,4 +1,6 @@
 name: Octable
-description: Timetable
+author: C. J. Hwong
+description: Timetable for students
+homepage: http://twitter.com/CJHwong
 dependencies:
   browser: any
