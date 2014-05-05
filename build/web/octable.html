@@ -5,19 +5,13 @@
 <meta name="viewport"
   content="width=device-width initial-scale=1.0 maximum-scale=1.0 minimum-scale=1.0">
 <title>Octable</title>
-<link rel="shortcut icon" href="octable.png">
-<link rel="stylesheet" href="octable.css">
+<link rel="shortcut icon" href="static/octable.png">
+<link rel="stylesheet" href="static/octable.css">
 </head>
 <body>
   <div id="fb-root"></div>
   <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '751950231512641',
-          xfbml      : true,
-          version    : 'v2.0'
-        });
-      };
+      window.fbAsyncInit = function() {};
 
       (function(d, s, id){
          var js, fjs = d.getElementsByTagName(s)[0];
@@ -30,7 +24,8 @@
   <nav id="navbar">
     <select id="college-select"></select>
     <button id="export-btn">Export</button>
-    <button id="facebook-login">Login</button>
+    <button id="facebook-login"></button>
+    <button id="facebook-share">Share</button>
   </nav>
 
   <div id="content-container">
@@ -398,7 +393,7 @@
     </div>
   </div>
 
-  <script type="application/dart" src="octable.dart"></script>
+  <script type="application/dart" src="static/octable.dart"></script>
   <script src="packages/browser/dart.js"></script>
 </body>
 </html>

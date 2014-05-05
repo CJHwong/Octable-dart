@@ -4,3 +4,5 @@ description: Timetable for students
 homepage: http://twitter.com/CJHwong
 dependencies:
   browser: any
+  crypto: any
+  utf: any

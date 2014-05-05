@@ -86,8 +86,7 @@ class Octable {
 
     // Export button
     ButtonElement exportBtn = querySelector('#export-btn')..onClick.listen((Event e) {
-          ExportSVG export = new ExportSVG();
-          var exportContent = export.createTable().outerHtml;
+          var exportContent = ExportSVG.createTable().outerHtml;
           Blob blob = new Blob([exportContent]);
           AnchorElement downloadSvg = new AnchorElement()
               ..text = 'Export'
@@ -109,7 +108,7 @@ class Octable {
       print('Downloading JSON from server...');
 
       String host = window.location.host;
-      String url = 'http://$host/Octable/web/data/$college/$college.json';
+      String url = 'http://$host/Octable/web/static/data/$college/$college.json';
       var request = HttpRequest.getString(url).then(_onDataLoaded);
     }
   }
@@ -130,4 +129,5 @@ class Octable {
 void main() {
   new Octable('nchu', 1).open();
   Facebook.prepare();
+  print(ExportSVG.toDataUrl());
 }

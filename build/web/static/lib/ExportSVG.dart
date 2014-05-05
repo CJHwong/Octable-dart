@@ -3,9 +3,11 @@ library ExportSVG;
 import 'dart:html';
 import 'dart:convert';
 import 'dart:svg';
+import 'package:utf/utf.dart';
+import 'package:crypto/crypto.dart';
 
 class ExportSVG {
-  SvgSvgElement bindCourse(SvgSvgElement svg) {
+  static SvgSvgElement bindCourse(SvgSvgElement svg) {
     Storage localStorage = window.localStorage;
     Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
 
@@ -63,7 +65,7 @@ class ExportSVG {
     return svg;
   }
 
-  SvgSvgElement createTable() {
+  static SvgSvgElement createTable() {
     SvgSvgElement svg = new SvgSvgElement()
         ..attributes['version'] = '1.2'
         ..attributes['id'] = 'export-svg'
@@ -112,12 +114,17 @@ class ExportSVG {
     return svg;
   }
 
+  static String toDataUrl() {
+    List bytes = encodeUtf8(ExportSVG.createTable().outerHtml);
+    String base64 = CryptoUtils.bytesToBase64(bytes);
+    return 'data:image/svg+xml;base64,' + base64;
+  }
+
   static void displaySVG() {
-    ExportSVG export = new ExportSVG();
     BodyElement body = querySelector('body')..style.overflow = 'hidden';
     DivElement container = new DivElement()
         ..id = 'popup-container'
-        ..append(export.createTable())
+        ..append(ExportSVG .createTable())
         ..onClick.listen((Event e) {
           DivElement popupContainer = querySelector('#popup-container');
           popupContainer.remove();
