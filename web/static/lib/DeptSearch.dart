@@ -8,13 +8,13 @@ import 'Cell.dart';
 
 class DeptSearch extends IDB {
   Database _db;
-  var dbname, version, request, grade;
+  var dbname, version, _request, _grade;
 
   DeptSearch(String dbname, num version, String request, String grade) {
     this.dbname = dbname;
     this.version = version;
-    this.request = request;
-    this.grade = grade;
+    this._request = request;
+    this._grade = grade;
   }
 
   void onDbOpened(Database db) {
@@ -29,7 +29,7 @@ class DeptSearch extends IDB {
         depts.add(cursor.value['department']);
       }
     }, onDone: () {
-      if (request == 'open') {
+      if (_request == 'open') {
         SelectElement deptSelect = querySelector('#dept-select')..children.clear();
         for (String dept in depts) {
           OptionElement deptName = new OptionElement()
@@ -38,7 +38,7 @@ class DeptSearch extends IDB {
           deptSelect.append(deptName);
         }
       } else {
-        _updateSearchList(request);
+        _updateSearchList(_request);
       }
     });
   }
@@ -51,7 +51,7 @@ class DeptSearch extends IDB {
     UListElement searchList = querySelector('#search-list').children[0]..children.clear(); // Clear previous DOM
 
     cursors.listen((cursor) {
-      if (grade == '0' || cursor.value['grade'] == grade) {
+      if (_grade == '0' || cursor.value['grade'] == _grade) {
         SpanElement courseTitle = new SpanElement()..text = '${cursor.value["title"]}';
 
         SpanElement courseCode = new SpanElement()..text = '課程代碼: ${cursor.value["code"]}';

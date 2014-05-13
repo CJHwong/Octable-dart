@@ -8,39 +8,39 @@ import 'Cell.dart';
 
 class CustomSearch extends IDB {
   Database _db;
-  var dbname, version, request, mode;
+  var dbname, version, _request, _mode;
 
   CustomSearch(String dbname, num version, String request, String mode) {
     this.dbname = dbname;
     this.version = version;
-    this.request = request;
-    this.mode = mode;
+    this._request = request;
+    this._mode = mode;
   }
 
   void onDbOpened(Database db) {
     _db = db;
     Transaction trans = _db.transaction('Courses', 'readonly');
     ObjectStore store = trans.objectStore('Courses');
-    Stream<CursorWithValue> cursors = store.index(mode).openCursor(autoAdvance: false);
+    Stream<CursorWithValue> cursors = store.index(_mode).openCursor(autoAdvance: false);
 
     UListElement searchList = querySelector('#search-list').children[0]..children.clear(); // Clear previous DOM
 
     int count = 0;
     cursors.listen((cursor) {
-      if (mode == 'title') {
-        if (cursor.value['title'].startsWith(request)) {
+      if (_mode == 'title') {
+        if (cursor.value['title'].startsWith(_request)) {
           _updateSearchList(cursor);
           count += 1;
         }
-      } else if (mode == 'code') {
-        if (cursor.value['code'].startsWith(request)) {
+      } else if (_mode == 'code') {
+        if (cursor.value['code'].startsWith(_request)) {
           _updateSearchList(cursor);
           count += 1;
         }
-      } else if (mode == 'time') {
+      } else if (_mode == 'time') {
         String times = cursor.value['time'].trim();
         for (String time in times.split(',')) {
-          if (time.startsWith(request)) {
+          if (time.startsWith(_request)) {
             _updateSearchList(cursor);
             count += 1;
             break;

@@ -1,16 +1,16 @@
 #navbar {
-  background-color: #F9F9F9;
-  position: fixed;
-  top: 0;
-  height: 36px;
-  width: 100%;
-  z-index: 20;
-  box-shadow: 1px 1px 3px #141414;
+	background-color: #F9F9F9;
+	position: fixed;
+	top: 0;
+	height: 36px;
+	width: 100%;
+	z-index: 20;
+	box-shadow: 1px 1px 3px #141414;
 }
 
 #export-svg {
-  position: fixed;
-  left: calc(50% -         315px; );
-  top: 10px;
-  overflow: auto;
+	position: fixed;
+	left: calc(50% -             315px; );
+	top: 10px;
+	overflow: auto;
 }

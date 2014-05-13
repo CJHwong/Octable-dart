@@ -5,9 +5,10 @@ import 'dart:convert';
 import 'dart:svg';
 import 'package:utf/utf.dart';
 import 'package:crypto/crypto.dart';
+import 'UI.dart';
 
 class ExportSVG {
-  static SvgSvgElement bindCourse(SvgSvgElement svg) {
+  SvgSvgElement _bindCourse(SvgSvgElement svg) {
     Storage localStorage = window.localStorage;
     Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
 
@@ -109,7 +110,7 @@ class ExportSVG {
       svg.append(text);
     }
 
-    svg = bindCourse(svg);
+    svg = new ExportSVG()._bindCourse(svg);
 
     return svg;
   }
@@ -120,17 +121,15 @@ class ExportSVG {
     return 'data:image/svg+xml;base64,' + base64;
   }
 
-  static void displaySVG() {
-    BodyElement body = querySelector('body')..style.overflow = 'hidden';
-    DivElement container = new DivElement()
-        ..id = 'popup-container'
-        ..append(ExportSVG .createTable())
-        ..onClick.listen((Event e) {
-          DivElement popupContainer = querySelector('#popup-container');
-          popupContainer.remove();
-          body.attributes.remove('style');
-        });
+  static void download() {
+    AnchorElement downloadSvg = new AnchorElement()
+        ..text = 'Export'
+        ..href = ExportSVG.toDataUrl()
+        ..attributes['download'] = 'timetatable.svg'
+        ..dispatchEvent(new CustomEvent('click'));
+  }
 
-    body.append(container);
+  static void displaySVG() {
+    new UI().showPopup(ExportSVG.createTable(), true);
   }
 }
