@@ -58,7 +58,7 @@ class UI {
       if (request.value != "") {
         new CustomSearch(_college, _version, request.value, mode.value).open();
       } else {
-        UListElement searchList = querySelector('#search-list')..children[0].children.clear();
+        DivElement searchList = querySelector('#search-list')..children[0].children.clear();
       }
     });
 
@@ -136,7 +136,13 @@ class UI {
       print('Downloading JSON from server...');
       _loadingAnimation();
       String host = window.location.host;
-      String url = 'http://$host/Octable/web/static/data/$_college/$_college.json';
+      String url = "";
+      print(host);
+      if (host == '127.0.0.1:3030') {
+        url = 'http://$host/Octable/web/static/data/$_college/$_college.json';
+      } else {
+        url = 'http://$host/static/data/$_college/$_college.json';
+      }
       HttpRequest.getString(url).then(_onDataLoaded);
     }
   }

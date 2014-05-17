@@ -31,6 +31,7 @@ class DeptSearch extends IDB {
     }, onDone: () {
       if (_request == 'open') {
         SelectElement deptSelect = querySelector('#dept-select')..children.clear();
+        UListElement searchList = querySelector('#search-list').children[0]..children.clear(); // Clear previous DOM
         for (String dept in depts) {
           OptionElement deptName = new OptionElement()
               ..value = dept
@@ -67,7 +68,7 @@ class DeptSearch extends IDB {
         }
         // Handle mouse event
         Map values = cursor.value;
-        courseObligatory
+        LIElement courseElement = new LIElement()
             ..onClick.listen((Event e) {
               Cell.add(values);
             })
@@ -79,7 +80,7 @@ class DeptSearch extends IDB {
             });
         courseContent.append(courseObligatory);
 
-        LIElement courseElement = new LIElement()
+          courseElement
             ..attributes['class'] = 'subject'
             ..attributes['code'] = cursor.value['code']
             ..children.addAll([courseTitle, courseCode, courseContent]);

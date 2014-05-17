@@ -70,17 +70,17 @@
 }
 
 .time-tag {
-	background-color: white;
 	position: absolute;
 	width: 15px;
 	height: 15px;
 	left: -7px;
 	z-index: 10;
-	box-shadow: 1px 1px 1px black;
+	background-color: white;
 	border-radius: 100%;
-	text-align: center;
+	box-shadow: 0.5px 0.5px 1px black;
 	font-size: 0.7em;
 	font-family: Arial;
+	text-align: center;
 }
 
 .time-tag:nth-child(8) {
@@ -151,7 +151,7 @@
 #course-detail {
 	background-color: #FFFFFF;
 	margin: 0px auto;
-	width: 20%;
+	width: 250px;
 	padding: 10px 0px 10px 13px;
 	position: relative;
 	top: calc(50% -             100px);

@@ -1,4 +1,8 @@
 @media ( max-width : 480px) {
+  html {
+    overflow-x: hidden;
+  }
+
 	#content-container {
 		left: 0px;
 	}
@@ -7,6 +11,11 @@
 		top: -13px;
 		left: 0px;
 	}
+
+	#course-detail {
+	 width: 90%;
+	}
+
 	.column {
 		position: absolute;
 		width: calc(100%/ 7);

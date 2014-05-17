@@ -62,6 +62,16 @@ body {
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-direction: linear;
   -webkit-border-radius: 21px;
+  -moz-animation-name: bounce_circleG;
+  -moz-animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-direction: linear;
+  -moz-border-radius: 21px;
+  animation-name: bounce_circleG;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: linear;
+  border-radius: 21px;
 }
 
 #circleG_1 {
@@ -77,6 +87,16 @@ body {
 }
 
 @-webkit-keyframes bounce_circleG {
+  0% {
+    background-color: #BD8CBD;
+  }
+}
+@-moz-keyframes bounce_circleG {
+  0% {
+    background-color: #BD8CBD;
+  }
+}
+@keyframes bounce_circleG {
   0% {
     background-color: #BD8CBD;
   }

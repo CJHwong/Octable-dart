@@ -74,21 +74,24 @@ class CustomSearch extends IDB {
         ..href = '#'
         ..text = cursor.value["obligatory"];
     courseContent.append(courseObligatory);
+
+    LIElement courseElement = new LIElement()
+            ..attributes['class'] = 'subject'
+            ..attributes['code'] = cursor.value['code'];
+
     // Handle mouse event
     Map values = cursor.value;
-    courseObligatory.onClick.listen((Event e) {
+    courseElement.onClick.listen((Event e) {
       Cell.add(values);
     });
-    courseObligatory.onMouseOver.listen((Event e) {
+    courseElement.onMouseOver.listen((Event e) {
       Cell.display(values, 'show');
     });
-    courseObligatory.onMouseOut.listen((Event e) {
+    courseElement.onMouseOut.listen((Event e) {
       Cell.display(values, 'hide');
     });
 
-    LIElement courseElement = new LIElement()
-        ..attributes['class'] = 'subject'
-        ..attributes['code'] = cursor.value['code']
+    courseElement
         ..children.addAll([courseTitle, courseCode, courseContent]);
     searchList.append(courseElement);
   }

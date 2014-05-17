@@ -2,6 +2,7 @@ library Cell;
 
 import 'dart:html';
 import 'dart:convert';
+import 'LocalStorage.dart';
 
 class Cell {
   static final String SELECTED = '#ADC7C5',
@@ -16,15 +17,14 @@ class Cell {
     }
 
     // Prevent conflict or selected courses from being add
-    Storage localStorage = window.localStorage;
-    Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
+    Map selectedCourses = JSON.decode(LocalStorage.get('selectedCourses'));
     if (cellConflict || (!auto && selectedCourses.keys.toList().contains(values['code']))) {
       return;
     }
 
     // Add to localStorage
     selectedCourses[values['code']] = values;
-    localStorage['selectedCourses'] = JSON.encode(selectedCourses);
+    LocalStorage.set('selectedCourses', JSON.encode(selectedCourses));
 
     // Increase credits counter
     SpanElement creditsCounter = querySelector('#credits');
@@ -140,9 +140,8 @@ class Cell {
 
   static void remove(String code, String time, String credits) {
     // Remove from localStorage
-    Storage localStorage = window.localStorage;
-    Map selectedCourses = JSON.decode(localStorage['selectedCourses'])..remove(code);
-    localStorage['selectedCourses'] = JSON.encode(selectedCourses);
+    Map selectedCourses = JSON.decode(LocalStorage.get('selectedCourses'))..remove(code);
+    LocalStorage.set('selectedCourses', JSON.encode(selectedCourses));
 
     // Decrease credits counter
     SpanElement creditsCounter = querySelector('#credits');
@@ -174,7 +173,7 @@ class Cell {
     }
 
     print('Removed $code');
-    print(localStorage['selectedCourses']);
+    print(LocalStorage.get('selectedCourses'));
   }
 
   static void display(Map values, String behave) {
@@ -217,9 +216,8 @@ class Cell {
   }
 
   static void addSelected() {
-    Storage localStorage = window.localStorage;
-    if (localStorage['selectedCourses'] != null) {
-      Map selectedCourses = JSON.decode(localStorage['selectedCourses']);
+    if (LocalStorage.get('selectedCourses') != null) {
+      Map selectedCourses = JSON.decode(LocalStorage.get('selectedCourses'));
       for (Map value in selectedCourses.values) {
         Cell.add(value, auto: true);
       }

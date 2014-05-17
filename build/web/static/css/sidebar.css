@@ -1,12 +1,14 @@
 #sidebar {
-	background-color: #F9F9F9;
 	display: inline-block;
 	width: 266px;
 	height: 556px;
 	position: absolute;
+	padding-bottom: 10px;
 	margin-left: 7px;
 	left: calc(50% -             455px +             644px);
+	background-color: #F9F9F9;
 	border-radius: 3px;
+	box-shadow: 1px 1px 2px black;
 	box-sizing: border-box;
 }
 
@@ -42,11 +44,17 @@
 .legend {
 	display: block;
 	position: relative;
-	float: left;
 	z-index: 5;
+	float: left;
+	padding: 2px;
+	padding-left: 6px;
+	padding-right: 6px;
 	margin-bottom: -10px;
 	margin-left: 1.5em;
-	font-size: 13px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 1px 0.5px 2px;
+	font-size: 12px;
 	text-shadow: 1px 1px 3px #FFF;
 }
 
@@ -61,8 +69,8 @@
 	width: 90%;
 	height: calc(46% -             36px);
 	margin-left: 5%;
-	box-shadow: inset 0px 0px 7px;
-	border-radius: 5px;
+	box-shadow: inset 0px 0px 4px;
+	border-radius: 3px;
 	overflow-y: scroll;
 }
 
